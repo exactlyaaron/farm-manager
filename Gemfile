@@ -15,6 +15,10 @@ gem 'haml-rails'
 gem 'high_voltage'
 gem 'unicorn'
 gem 'unicorn-rails'
+
+gem 'devise'
+gem 'omniauth'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
