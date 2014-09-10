@@ -8,6 +8,11 @@
         %span.icon-bar
         %span.icon-bar
       = link_to 'Home', root_path, class: 'navbar-brand'
+      = link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook)
+      - if current_user
+        = current_user.email
+        - if current_user.name
+          = current_user.name
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         = render 'layouts/navigation_links'
