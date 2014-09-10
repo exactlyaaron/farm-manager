@@ -30,13 +30,14 @@ group :development do
   gem 'rails_layout'
 end
 group :development, :test do
-  gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
 end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'fabrication'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'shoulda'
 end
