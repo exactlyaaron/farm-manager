@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :user, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
+  devise_for :user, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => :registrations }
   root to: 'visitors#index'
   get '/dashboard', to: 'users#dashboard'
   

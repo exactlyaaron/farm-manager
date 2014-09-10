@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
-  validates_presence_of :email, :password
+  validates_presence_of :email
+  validates_presence_of :password, on: :create
   validates_uniqueness_of :email
 
   def self.from_omniauth(auth)

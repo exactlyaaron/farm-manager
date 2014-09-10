@@ -11,4 +11,25 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_registration_url
     end
   end
+
+  protected
+
+  def after_sign_up_path_for(resource)
+    flash.notice = "Welcome to FarmManager, #{current_user.email}"
+    dashboard_path
+  end
+
+  def after_sign_in_path_for(resource)
+    flash.notice = "Welcome back, #{current_user.email}"
+    dashboard_path
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_path
+  end
+
+  def after_update_path_for(resource_or_scope)
+    flash.notice = "Your account was updated successfully."
+    '/dashboard'
+  end
 end
