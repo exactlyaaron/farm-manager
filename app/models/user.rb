@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates :password, length: {minimum: 8}, on: :create
 
+  before_save :default_values
+  def default_values
+    self.budget ||= 0
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
