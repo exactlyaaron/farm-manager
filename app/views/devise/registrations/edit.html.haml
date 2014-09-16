@@ -4,12 +4,14 @@
   = f.error_notification
   = render "devise/shared/error_messages", object: f.object
   .form-inputs
-    = f.input :name
-
     = f.input :email, required: true
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %p
         Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+    = f.input :name
+
+    = f.input :budget, as: :decimal
     
     = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
     
