@@ -1,6 +1,6 @@
 feature "Users signs in" do
 
-  before do
+  background do
     @user = Fabricate(:user)
     visit "/"
     click_link "Sign in"
@@ -41,5 +41,47 @@ feature "Users signs in" do
   scenario "with blank form" do
     click_button "Log in"
     expect(page).to have_content("Invalid email or password.")
+  end
+
+  scenario "Sign In with Facebook" do
+    sign_into_facebook_as "joe"
+    visit '/'
+    click_link "Sign in with Facebook"
+    expect(page).to have_content "Successfully authenticated from Facebook account."
+    expect(page).to have_content "Sign Out"
+    expect(page).not_to have_content "Sign Up"
+    expect(page).not_to have_content "Sign In"
+    click_link "Sign Out"
+    expect(page).not_to have_content "Sign Out"
+    expect(page).to have_content "Sign in with Facebook"
+    expect(User.count).to eq 2
+  end
+
+  scenario "Login and Log out with Facebook" do
+    Fabricate(:user,
+      uid: "12345",
+      email: "joe@example.com",
+      name: "joe")
+    sign_into_facebook_as "joe"
+    visit '/'
+    click_link "Sign in with Facebook"
+    expect(page).to have_content "Successfully authenticated from Facebook account."
+
+    expect(page).to have_content "Sign Out"
+    expect(page).not_to have_content "Sign Up"
+    expect(page).not_to have_content "Sign In"
+    click_link "Sign Out"
+    expect(page).not_to have_content "Sign Out"
+    expect(page).to have_content "Sign in with Facebook"
+    expect(User.count).to eq 3
+  end
+
+  scenario "then signs out" do
+    fill_in "Email", with: "#{@user.email}"
+    fill_in "Password", with: "#{@user.password}"
+    click_button "Log in"
+    click_link "Sign Out"
+    expect(page).to have_content("Signed out successfully")
+    expect(page).to have_content("Sign in")
   end
 end

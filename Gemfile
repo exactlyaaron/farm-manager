@@ -20,6 +20,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
+gem 'simple_form'
 
 group :development do
   gem 'better_errors'
