@@ -1,24 +1,63 @@
 feature "Adding a supply" do
+
+  background do
+    @user = Fabricate(:user)
+    login_as @user
+  end
+
+  scenario "- new user with no supplies" do
+    visit "/"
+    click_on "Manage My Supplies"
+    expect(page).to have_content("Chemicals")
+    expect(page).to have_content("Fertilizer")
+    expect(page).to have_content("Seed")
+    expect(page).to have_content("Other")
+    expect(page).to have_content("You currently have not purchased any supplies")
+    expect(page).to have_content("Total Cost: $0.00")
+  end
+
+  scenario "- with one existing chemical" do
+    Fabricate(:supply, user: @user, kind: "Chemical")
+    visit "/"
+    click_on "Manage My Supplies"
+    expect(page).not_to have_content("You currently have not purchased any supplies")
+    expect(page).to have_content("Total Cost: $10.00")
+  end
+
+  scenario "- with multiple existing supplies" do
+    Fabricate(:supply, user: @user, kind: "Chemical")
+    Fabricate(:supply, user: @user, kind: "Chemical")
+    Fabricate(:supply, user: @user, kind: "Fertilizer")
+    Fabricate(:supply, user: @user, kind: "Seed")
+    Fabricate(:supply, user: @user, kind: "Other")
+    visit "/"
+    click_on "Manage My Supplies"
+    expect(page).not_to have_content("You currently have not purchased any supplies")
+    expect(page).to have_content("$20.00")
+    expect(page).to have_content("$10.00")
+    expect(page).to have_content("Total Cost: $50.00")
+  end
+
   scenario "Happy Path from supplies index" do
-    pending "implementation"
-    visit '/'
+    visit "/"
     click_on "Manage My Supplies"
     click_on "Add Purchase"
-    select "2014", from: "purchase_date_1i"
-    select "March", from: "purchase_date_2i"
-    select "13", from: "purchase_date_3i"
+    select "2014", from: "supply_date_1i"
+    select "March", from: "supply_date_2i"
+    select "13", from: "supply_date_3i"
     fill_in "Name", with: "Round Up"
     fill_in "Vendor", with: "Fandrich's"
-    select "oz", from: "purcahse_measure"
+    select "qt", from: "Measure"
     fill_in "Price", with: "$400.00"
     click_on "Add Purchase"
     expect(page).to have_content("Round Up purchase has been added to your supplies")
+    expect(Supply.count).to eq 1
+    expect(page).to have_content("400")
     expect(current_path).to eq supplies_path
   end
 
   scenario "skipping filling out the form" do
-    pending "implementation"
-    visit '/'
+    visit "/"
     click_on "Manage My Supplies"
     click_on "Add Purchase"
     click_on "Add Purchase"
@@ -31,14 +70,13 @@ feature "Adding a supply" do
   end
 
   scenario "from the chemicals index page" do
-    pending "implementation"
-    visit '/'
-    click_on "Supplies"
+    visit "/"
+    click_on "Manage My Supplies"
     click_on "Chemicals"
     click_on "Add Purchase"
-    select "2014", from: "purchase_date_1i"
-    select "March", from: "purchase_date_2i"
-    select "13", from: "purchase_date_3i"
+    select "2014", from: "supply_date_1i"
+    select "March", from: "supply_date_2i"
+    select "13", from: "supply_date_3i"
     fill_in "Name", with: "Round Up"
     fill_in "Vendor", with: "Fandrich's"
     select "oz", from: "purcahse_measure"
