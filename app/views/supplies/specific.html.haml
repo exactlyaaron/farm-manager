@@ -1,23 +1,32 @@
 %h2= "#{@kind.pluralize.capitalize}"
 = link_to "Add Purchase", "#{@kind}/new"
 
-%ul.headers
-  %li.header= "Date"
-  %li.header= "#{@kind.capitalize}"
-  %li.header= "Vendor"
-  %li.header= "Measure"
-  %li.header= "Quantity"
-  %li.header= "Price"
-  %li.header= "Cost Per"
+- if @list.length > 0
+  %ul.headers
+    %li.header= "Date"
+    %li.header= "#{@kind.capitalize}"
+    %li.header= "Vendor"
+    %li.header= "Measure"
+    %li.header= "Quantity"
+    %li.header= "Price"
+    %li.header= "Cost Per"
 
-- @list.each do |supply|
-  %ul.entry
-    %li= supply.purchase_date
-    %li= supply.name
-    %li= supply.vendor
-    %li= supply.measure
-    %li= supply.quantity
-    %li= "#{number_to_currency(supply.price)}"
-    %li= "#{number_to_currency(supply.price.to_f / supply.quantity.to_f)}"
+  - @list.each do |entry|
+    %ul.entry
+      %li= entry.purchase_date
+      %li= entry.name
+      %li= entry.vendor
+      %li= entry.measure
+      %li= entry.quantity
+      %li= "#{number_to_currency(entry.price)}"
+      %li= "#{number_to_currency(entry.price.to_f / entry.quantity.to_f)}"
+      %li
+        = link_to "Delete", "#{@kind}/#{entry.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{entry.name}?" }
+      %li
+        = link_to "Edit", edit_supply_path(entry)
 
-%p= "#{number_to_currency(@list_total)}"
+  %p= "#{number_to_currency(@list_total)}"
+
+- else
+  %h3= "You have not yet purchased any #{@kind.pluralize}"
+  = link_to "Add Your First Purchase", "#{@kind}/new"

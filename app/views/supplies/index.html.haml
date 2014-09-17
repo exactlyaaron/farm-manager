@@ -8,28 +8,23 @@
 
 .row
   %h2 
-    = link_to "Chemicals", chemicals_path
+    = link_to "Chemicals", 'supplies/chemical'
   %p= "#{number_to_currency(@chemical_total)}"
 
 .row
   %h2
-    = link_to "Fertilizer", fertilizers_path
+    = link_to "Fertilizer", 'supplies/fertilizer'
   %p= "#{number_to_currency(@fertilizer_total)}"
 
 .row
   %h2
-    = link_to "Seed", seeds_path
+    = link_to "Seed", 'supplies/seed'
   %p= "#{number_to_currency(@seed_total)}"
 
 .row
   %h2
-    = link_to "Other", other_supplies_path
+    = link_to "Other", 'supplies/other_supplies'
   %p= "#{number_to_currency(@other_total)}"
 
 .row
   %p= "Total Cost: #{number_to_currency(@total)}"
-
-%ul
-  - @supplies.each do |supply|
-    %li
-      = link_to "#{supply.name}", edit_supply_path(supply)

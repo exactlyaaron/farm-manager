@@ -28,6 +28,24 @@ class SuppliesController < ApplicationController
     end
   end
 
+  def destroy
+    @kind = params[:kind]
+    @id = params[:id]
+    Supply.destroy(@id)
+    redirect_to :back
+  end
+
+  def edit
+    @supply = Supply.find(params[:id])
+    if @supply.update(supply_params)
+      flash[:notice] = "#{@supply.name} has been updated."
+      redirect_to "/supplies/#{@supply.kind}"
+    else
+      flash[:alert] = "Purchase could not be updated."
+      render edit_supply_path(@supply)
+    end
+  end
+
   def new
     @supply = Supply.new
     @kind = params[:kind]

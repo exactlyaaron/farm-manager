@@ -55,7 +55,7 @@ feature "Adding a supply" do
     expect(page).to have_content("Round Up purchase has been added to your supplies")
     expect(Supply.count).to eq 1
     expect(page).to have_content("400")
-    expect(current_path).to eq chemicals_path
+    expect(current_path).to eq '/supplies/chemical'
   end
 
   scenario "from the chemicals page" do
@@ -74,7 +74,7 @@ feature "Adding a supply" do
     fill_in "Price", with: "400.00"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
-    expect(current_path).to eq chemicals_path
+    expect(current_path).to eq '/supplies/chemical'
     expect(page).to have_content("Round Up purchase has been added to your supplies")
     expect(page).to have_content("400")
   end
@@ -95,7 +95,7 @@ feature "Adding a supply" do
     fill_in "Price", with: "200.00"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
-    expect(current_path).to eq fertilizers_path
+    expect(current_path).to eq '/supplies/fertilizer'
     expect(page).to have_content("SuperFertilizer purchase has been added to your supplies")
     expect(page).to have_content("200")
   end
@@ -115,7 +115,7 @@ feature "Adding a supply" do
     fill_in "Price", with: "200.00"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
-    expect(current_path).to eq seeds_path
+    expect(current_path).to eq '/supplies/seed'
     expect(page).to have_content("SuperFertilizer purchase has been added to your supplies")
     expect(page).to have_content("200")
   end
