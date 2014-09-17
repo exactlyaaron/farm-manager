@@ -1,0 +1,10 @@
+%h2= "#{@kind.pluralize.capitalize}"
+= link_to "Add Purchase", "#{@kind}/new"
+
+%ul
+  - @list.each do |supply|
+    %li
+      %p= supply.name
+  end
+
+%p= "#{number_to_currency(@list_total)}"
