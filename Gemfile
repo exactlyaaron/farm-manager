@@ -17,6 +17,7 @@ gem 'unicorn'
 gem 'unicorn-rails'
 
 gem 'devise'
+gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
