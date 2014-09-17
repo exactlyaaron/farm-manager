@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates :password, length: {minimum: 8}, on: :create
 
+  has_many :supplies
+
   before_save :default_values
   def default_values
     self.budget ||= 0
