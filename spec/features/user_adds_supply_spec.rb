@@ -6,7 +6,7 @@ feature "Adding a supply" do
   end
 
   scenario "- new user with no supplies" do
-    visit "/"
+    visit "/dashboard"
     click_on "Manage My Supplies"
     expect(page).to have_content("Chemicals")
     expect(page).to have_content("Fertilizer")
@@ -17,20 +17,20 @@ feature "Adding a supply" do
   end
 
   scenario "- with one existing chemical" do
-    Fabricate(:supply, user: @user, kind: "Chemical")
-    visit "/"
+    Fabricate(:supply, user: @user, kind: "chemical")
+    visit "/dashboard"
     click_on "Manage My Supplies"
     expect(page).not_to have_content("You currently have not purchased any supplies")
     expect(page).to have_content("Total Cost: $10.00")
   end
 
   scenario "- with multiple existing supplies" do
-    Fabricate(:supply, user: @user, kind: "Chemical")
-    Fabricate(:supply, user: @user, kind: "Chemical")
-    Fabricate(:supply, user: @user, kind: "Fertilizer")
-    Fabricate(:supply, user: @user, kind: "Seed")
-    Fabricate(:supply, user: @user, kind: "Other")
-    visit "/"
+    Fabricate(:supply, user: @user, kind: "chemical")
+    Fabricate(:supply, user: @user, kind: "chemical")
+    Fabricate(:supply, user: @user, kind: "fertilizer")
+    Fabricate(:supply, user: @user, kind: "seed")
+    Fabricate(:supply, user: @user, kind: "other")
+    visit "/dashboard"
     click_on "Manage My Supplies"
     expect(page).not_to have_content("You currently have not purchased any supplies")
     expect(page).to have_content("$20.00")
@@ -39,52 +39,92 @@ feature "Adding a supply" do
   end
 
   scenario "Happy Path from supplies index" do
-    visit "/"
+    visit "/dashboard"
     click_on "Manage My Supplies"
     click_on "Add Purchase"
-    select "2014", from: "supply_date_1i"
-    select "March", from: "supply_date_2i"
-    select "13", from: "supply_date_3i"
+    select "chemical", from: "Kind"
+    select "2014", from: "supply_purchase_date_1i"
+    select "March", from: "supply_purchase_date_2i"
+    select "13", from: "supply_purchase_date_3i"
     fill_in "Name", with: "Round Up"
     fill_in "Vendor", with: "Fandrich's"
     select "qt", from: "Measure"
-    fill_in "Price", with: "$400.00"
+    fill_in "Quantity", with: "240"
+    fill_in "Price", with: "400.00"
     click_on "Add Purchase"
     expect(page).to have_content("Round Up purchase has been added to your supplies")
     expect(Supply.count).to eq 1
     expect(page).to have_content("400")
-    expect(current_path).to eq supplies_path
+    expect(current_path).to eq chemicals_path
   end
 
-  scenario "skipping filling out the form" do
-    visit "/"
-    click_on "Manage My Supplies"
-    click_on "Add Purchase"
-    click_on "Add Purchase"
-    expect(page).to have_content("Purcahse could not be added.")
-    expect(page).to have_error("must be selected", on: "Date")
-    expect(page).to have_error("can't be blank", on: "Name")
-    expect(page).to have_error("can't be blank", on: "Vendor")
-    expect(page).to have_error("must be selected", on: "Measure")
-    expect(page).to have_error("can't be blank", on: "Price")
-  end
-
-  scenario "from the chemicals index page" do
-    visit "/"
+  scenario "from the chemicals page" do
+    visit "/dashboard"
     click_on "Manage My Supplies"
     click_on "Chemicals"
     click_on "Add Purchase"
-    select "2014", from: "supply_date_1i"
-    select "March", from: "supply_date_2i"
-    select "13", from: "supply_date_3i"
+    select "chemical", from: "Kind"
+    select "2014", from: "supply_purchase_date_1i"
+    select "March", from: "supply_purchase_date_2i"
+    select "13", from: "supply_purchase_date_3i"
     fill_in "Name", with: "Round Up"
     fill_in "Vendor", with: "Fandrich's"
-    select "oz", from: "purcahse_measure"
-    fill_in "Price", with: "$400.00"
+    select "oz", from: "Measure"
+    fill_in "Quantity", with: "240"
+    fill_in "Price", with: "400.00"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
+    expect(current_path).to eq chemicals_path
     expect(page).to have_content("Round Up purchase has been added to your supplies")
     expect(page).to have_content("400")
-    expect(current_path).to eq chemicals_path
+  end
+
+  scenario "from the fertilizer page" do
+    visit "/dashboard"
+    click_on "Manage My Supplies"
+    click_on "Fertilizer"
+    click_on "Add Purchase"
+    select "fertilizer", from: "Kind"
+    select "2014", from: "supply_purchase_date_1i"
+    select "March", from: "supply_purchase_date_2i"
+    select "13", from: "supply_purchase_date_3i"
+    fill_in "Name", with: "SuperFertilizer"
+    fill_in "Vendor", with: "Fandrich's"
+    select "oz", from: "Measure"
+    fill_in "Quantity", with: "240"
+    fill_in "Price", with: "200.00"
+    click_on "Add Purchase"
+    expect(Supply.count).to eq 1
+    expect(current_path).to eq fertilizers_path
+    expect(page).to have_content("SuperFertilizer purchase has been added to your supplies")
+    expect(page).to have_content("200")
+  end
+
+  scenario "from the seed page" do
+    visit "/dashboard"
+    click_on "Manage My Supplies"
+    click_on "Seed"
+    click_on "Add Purchase"
+    select "seed", from: "Kind"
+    select "2014", from: "supply_purchase_date_1i"
+    select "March", from: "supply_purchase_date_2i"
+    select "13", from: "supply_purchase_date_3i"
+    fill_in "Name", with: "SuperFertilizer"
+    fill_in "Vendor", with: "Fandrich's"
+    select "bag", from: "Measure"
+    fill_in "Price", with: "200.00"
+    click_on "Add Purchase"
+    expect(Supply.count).to eq 1
+    expect(current_path).to eq seeds_path
+    expect(page).to have_content("SuperFertilizer purchase has been added to your supplies")
+    expect(page).to have_content("200")
+  end
+
+  scenario "skipping filling out the form" do
+    visit "/dashboard"
+    click_on "Manage My Supplies"
+    click_on "Add Purchase"
+    click_on "Add Purchase"
+    expect(current_path).to eq new_supply_path
   end
 end
