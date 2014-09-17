@@ -5,3 +5,14 @@ input {
 li {
   list-style-type:none;
 }
+
+ul.headers, ul.entry {
+  li {
+    display:inline-block;
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0;
+  }
+}

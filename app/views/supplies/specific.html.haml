@@ -1,10 +1,23 @@
 %h2= "#{@kind.pluralize.capitalize}"
 = link_to "Add Purchase", "#{@kind}/new"
 
-%ul
-  - @list.each do |supply|
-    %li
-      %p= supply.name
-  end
+%ul.headers
+  %li.header= "Date"
+  %li.header= "#{@kind.capitalize}"
+  %li.header= "Vendor"
+  %li.header= "Measure"
+  %li.header= "Quantity"
+  %li.header= "Price"
+  %li.header= "Cost Per"
+
+- @list.each do |supply|
+  %ul.entry
+    %li= supply.purchase_date
+    %li= supply.name
+    %li= supply.vendor
+    %li= supply.measure
+    %li= supply.quantity
+    %li= "#{number_to_currency(supply.price)}"
+    %li= "#{number_to_currency(supply.price.to_f / supply.quantity.to_f)}"
 
 %p= "#{number_to_currency(@list_total)}"

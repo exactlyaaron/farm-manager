@@ -39,10 +39,10 @@ class SuppliesController < ApplicationController
     @list_total = @list.sum(:price)
     render 'supplies/specific'
   end
-  
+
   protected
 
   def supply_params
-    params.require(:supply).permit(:kind, :name, :purchase_date, :vendor, :measure, :price)
+    params.require(:supply).permit(:kind, :name, :purchase_date, :vendor, :measure, :price, :quantity)
   end
 end
