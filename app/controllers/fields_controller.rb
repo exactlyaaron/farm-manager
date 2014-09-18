@@ -6,10 +6,6 @@ class FieldsController < ApplicationController
     @fields = current_user.fields.all
   end
 
-  def index
-    @total_acreage = @fields.sum(:acreage)
-  end
-
   def create
     @field = current_user.fields.create(field_params)
     @fields = current_user.fields.all
@@ -23,11 +19,17 @@ class FieldsController < ApplicationController
   end
 
   def destroy
-
+    @id = params[:id]
+    Field.destroy(@id)
+    redirect_to :back
   end
 
   def new
     @field = Field.new
+  end
+
+  def index
+    @total_acreage = @fields.sum(:acreage)
   end
 
   protected

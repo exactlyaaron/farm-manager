@@ -17,6 +17,8 @@
       %li= field.name
       %li= field.acreage
       %li= field.crop
+      %li
+        = link_to "Delete", field_path(field), method: :delete, data: { confirm: "Are you certain you want to delete #{field.name}?" }
 
 .row
   %p= "Total Acreage: #{@total_acreage} acres"
