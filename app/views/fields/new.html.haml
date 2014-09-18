@@ -1,0 +1,11 @@
+%h2= "New Field"
+
+= simple_form_for @field do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, required: true, autofocus: true
+    = f.input :acreage, as: :integer, required: true
+    = f.input :crop, required: true
+    = f.input :notes, as: :text, required: true
+  .form-actions
+    = f.button :submit, "Save Field"

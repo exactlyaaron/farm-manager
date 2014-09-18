@@ -37,6 +37,15 @@ class SuppliesController < ApplicationController
 
   def edit
     @supply = Supply.find(params[:id])
+  end
+
+  def new
+    @supply = Supply.new
+    @kind = params[:kind]
+  end
+
+  def update
+    @supply = Supply.find(params[:id])
     if @supply.update(supply_params)
       flash[:notice] = "#{@supply.name} has been updated."
       redirect_to "/supplies/#{@supply.kind}"
@@ -44,11 +53,6 @@ class SuppliesController < ApplicationController
       flash[:alert] = "Purchase could not be updated."
       render edit_supply_path(@supply)
     end
-  end
-
-  def new
-    @supply = Supply.new
-    @kind = params[:kind]
   end
 
   def show_kind

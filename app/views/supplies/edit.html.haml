@@ -1,0 +1,20 @@
+- if @kind == nil
+  %h2= "Edit Supply Details"
+- else
+  %h2= "Edit #{@kind.capitalize} Details"
+
+= simple_form_for @supply do |f|
+  = f.error_notification
+  .form-inputs
+    - if @kind == nil
+      = f.input :kind, collection: ["chemical", "fertilizer", "seed", "other"], prompt: "What did you buy?", required: true
+    - else
+      = f.input :kind, collection: ["#{@kind}"], default: 1, required: true
+    = f.input :name, required: true, autofocus: true
+    = f.input :purchase_date, as: :date, required: true
+    = f.input :vendor, required: true
+    = f.input :measure, collection: ["oz", "qt", "lb", "bag", "acre", "other"], prompt: "Select the measurement", required: true
+    = f.input :quantity, as: :integer, required: true
+    = f.input :price, as: :decimal, required: true
+  .form-actions
+    = f.button :submit, "Update Purchase"

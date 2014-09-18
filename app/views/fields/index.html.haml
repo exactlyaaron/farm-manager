@@ -1,0 +1,22 @@
+%h1 Fields
+
+= link_to "Add New Field", new_field_path
+
+- if @fields.empty?
+  %p You currently don't have any fields.
+  = link_to "Add your first field!", new_field_path
+
+.row
+  %ul.fields-headers
+    %li= "Name"
+    %li= "Acreage"
+    %li= "Crop"
+
+  - @fields.each do |field|
+    %ul.fields-entry
+      %li= field.name
+      %li= field.acreage
+      %li= field.crop
+
+.row
+  %p= "Total Acreage: #{@total_acreage} acres"

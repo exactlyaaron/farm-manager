@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   get '/dashboard', to: 'users#dashboard'
 
-  resources :supplies, :only => [:index, :create, :new, :edit, :destroy]
+  resources :supplies, :only => [:index, :create, :new, :edit, :destroy, :update]
   
   get 'supplies/:kind' => 'supplies#show_kind', as: :show_supply
   delete 'supplies/:kind/:id' => 'supplies#destroy', as: :destroy_supply
