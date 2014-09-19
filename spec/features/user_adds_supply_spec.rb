@@ -54,6 +54,7 @@ feature "Adding a supply" do
     click_on "Add Purchase"
     expect(page).to have_content("Round Up purchase has been added to your supplies")
     expect(Supply.count).to eq 1
+    expect(Supply.first.unit_cost).to eq 1.67
     expect(page).to have_content("400")
     expect(current_path).to eq '/supplies/chemical'
   end
@@ -71,7 +72,7 @@ feature "Adding a supply" do
     fill_in "Vendor", with: "Fandrich's"
     select "oz", from: "Measure"
     fill_in "Quantity", with: "240"
-    fill_in "Price", with: "400.00"
+    fill_in "Price", with: "400.23"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
     expect(current_path).to eq '/supplies/chemical'
@@ -111,13 +112,14 @@ feature "Adding a supply" do
     select "13", from: "supply_purchase_date_3i"
     fill_in "Name", with: "SuperFertilizer"
     fill_in "Vendor", with: "Fandrich's"
+    fill_in "Quantity", with: "240"
     select "bag", from: "Measure"
-    fill_in "Price", with: "200.00"
+    fill_in "Price", with: "200.12"
     click_on "Add Purchase"
     expect(Supply.count).to eq 1
     expect(current_path).to eq '/supplies/seed'
     expect(page).to have_content("SuperFertilizer purchase has been added to your supplies")
-    expect(page).to have_content("200")
+    expect(page).to have_content("200.12")
   end
 
   scenario "skipping filling out the form" do

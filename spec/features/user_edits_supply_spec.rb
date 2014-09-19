@@ -1,4 +1,4 @@
-feature "Destroying a supply" do
+feature "Editing a supply" do
 
   background do
     @user = Fabricate(:user)

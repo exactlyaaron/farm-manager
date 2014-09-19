@@ -14,4 +14,8 @@ Rails.application.routes.draw do
   get '/supplies/:kind/new', to: 'supplies#new', :defaults => { :kind => 'general' }, as: :new_other
 
   resources :fields
+  resources :treatments, :except => [:new, :create]
+
+  get '/fields/:id/treatments/new', to: 'treatments#new', as: :new_treatment
+  post '/fields/:id/treatments/new', to: 'treatments#create', as: :create_treatment
 end

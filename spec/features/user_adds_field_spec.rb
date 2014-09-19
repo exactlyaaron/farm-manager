@@ -1,4 +1,4 @@
-feature "Adding a supply" do
+feature "Adding a field" do
 
   background do
     @user = Fabricate(:user)
@@ -44,6 +44,17 @@ feature "Adding a supply" do
     click_on "Add New Field"
     click_on "Save Field"
     expect(current_path).to eq new_field_path
+  end
+
+  scenario "- viewing the basic field details" do
+    Fabricate(:field, user: @user)
+    visit "/dashboard"
+    click_on "Manage My Fields"
+    # save_and_open_page
+    first('ul.fields-entry > li > a').click
+    expect(page).to have_content("My Field")
+    expect(page).to have_content("notes about the field")
+    expect(page).to have_content("Total Field Cost")
   end
 
 end

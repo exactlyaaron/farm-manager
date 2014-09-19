@@ -24,12 +24,36 @@ class FieldsController < ApplicationController
     redirect_to :back
   end
 
+  def edit
+    @field = Field.find(params[:id])
+  end
+
   def new
     @field = Field.new
   end
 
   def index
     @total_acreage = @fields.sum(:acreage)
+  end
+
+  def show
+    @field = Field.find(params[:id])
+    @treatments = @field.treatments
+    @total_field_cost = 0
+    @treatments.each do |treatment|
+      @total_field_cost += treatment.supply.unit_cost * treatment.quantity
+    end
+  end
+
+  def update
+    @field = Field.find(params[:id])
+    if @field.update(field_params)
+      flash[:notice] = "#{@field.name} has been updated."
+      redirect_to field_path(@field)
+    else
+      flash[:alert] = "Field could not be updated."
+      render edit_field_path(@field)
+    end
   end
 
   protected

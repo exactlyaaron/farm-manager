@@ -18,6 +18,9 @@ class SuppliesController < ApplicationController
 
   def create
     @supply = current_user.supplies.create(supply_params)
+    if @supply.price && @supply.quantity
+      @supply.unit_cost = (@supply.price / @supply.quantity).round(2)
+    end
     @supplies = current_user.supplies.all
     if @supply.save
       flash[:notice] = "#{@supply.name} purchase has been added to your supplies."

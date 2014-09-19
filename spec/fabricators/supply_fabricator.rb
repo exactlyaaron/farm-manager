@@ -7,5 +7,6 @@ Fabricator(:supply) do
   measure "oz"
   quantity 25
   price 10
+  unit_cost 0.4
 
 end
