@@ -43,6 +43,10 @@ class FieldsController < ApplicationController
     @treatments.each do |treatment|
       @total_field_cost += treatment.supply.unit_cost * treatment.quantity
     end
+    @total_income = 0
+    @field.harvest_loads.each do |load|
+      @total_income += load.price_per_bushel * load.bushels_sold
+    end
   end
 
   def update

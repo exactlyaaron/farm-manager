@@ -73,7 +73,7 @@ feature "Adding a treatment to a field" do
     expect(page).not_to have_content("Add your first entry")
     click_on "Round Up"
     expect(page).to have_content("Round Up")
-    expect(page).to have_content("My Field 0")
+    expect(page).to have_content("My Field")
     expect(page).to have_content("10")
     expect(page).to have_content("0.40")
   end

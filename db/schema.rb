@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20140920021337) do
 
   add_index "fields", ["treatment_id"], name: "index_fields_on_treatment_id", using: :btree
 
+  create_table "harvest_loads", force: true do |t|
+    t.integer  "field_id"
+    t.string   "receipt_number"
+    t.decimal  "price_per_bushel"
+    t.decimal  "bushels_sold"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "supplies", force: true do |t|
     t.string   "kind"
     t.string   "name"

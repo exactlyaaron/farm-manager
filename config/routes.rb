@@ -11,9 +11,9 @@ Rails.application.routes.draw do
 
   resources :fields
 
-  get '/fields/:id/treatments/:treatment_id', to: 'treatments#show', as: :show_treatment
   get '/fields/:id/treatments/new', to: 'treatments#new', as: :new_treatment
   post '/fields/:id/treatments/new', to: 'treatments#create', as: :create_treatment
+  get '/fields/:id/treatments/:treatment_id', to: 'treatments#show', as: :show_treatment
   get '/fields/:id/treatments/:treatment_id/edit', to: 'treatments#edit', as: :edit_treatment
   patch '/fields/:id/treatments/:treatment_id/edit', to: 'treatments#update', as: :update_treatment
   delete '/fields/:id/treatments/:treatment_id', to: 'treatments#destroy', as: :destroy_treatment

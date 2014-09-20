@@ -43,7 +43,7 @@
 
 .row
   %h3= "Harvest Records"
-  = link_to "Add Harvest Load", "/fields/#{@field.id}/loads/new"
+  = link_to "Add Harvest Load", "/fields/#{@field.id}/harvest_loads/new"
   - if @field.harvest_loads.length > 0
     %ul.loads
       %li= "Date"
@@ -63,9 +63,10 @@
           = link_to "Edit", "#{@field.id}/harvest_loads/#{load.id}/edit"
         %li
           = link_to "Delete", "#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
+    %p= "Grand Total: #{number_to_currency(@total_income)}"
   - else
     %p= "You currenty have no harvest records for your field."
-    = link_to "Add your first harvest record", "/fields/#{@field.id}/treatments/new"
+    = link_to "Add your first load", "/fields/#{@field.id}/harvest_loads/new"
 
 %p= "NOTES: #{@field.notes}"
 %p= "Total Field Cost: #{number_to_currency(@total_field_cost)}"

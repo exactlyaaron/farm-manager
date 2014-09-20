@@ -1,0 +1,11 @@
+%h2= "New Harvest Load"
+
+= simple_form_for @harvest_load, :url => create_harvest_load_path do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :date, as: :date, required: true
+    = f.input :receipt_number, required: true
+    = f.input :price_per_bushel, required: true
+    = f.input :bushels_sold, required: true
+  .form-actions
+    = f.button :submit, "Save Load"
