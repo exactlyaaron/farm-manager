@@ -1,0 +1,11 @@
+%h2= "Edit Treatment Details"
+
+= simple_form_for @treatment, :url => update_treatment_path do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :supply_id, collection: @supplies, :prompt => "Select from supplies", required: true
+    = f.input :date, as: :date, required: true
+    = f.input :quantity, as: :integer, label: "Total Applied", required: true
+    = f.input :notes, as: :text
+  .form-actions
+    = f.button :submit, "Save Treatment"

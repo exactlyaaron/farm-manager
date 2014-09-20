@@ -63,4 +63,19 @@ feature "Adding a treatment to a field" do
     expect(page).to have_content("188")
   end
 
+  scenario "- views individual treatment record" do
+    Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
+    Fabricate(:treatment, field: @field, supply: @supply2, quantity: 10)
+    visit "/dashboard"
+    click_on "Manage My Fields"
+    first('ul.fields-entry > li > a').click
+    expect(page).not_to have_content("You currenty have no treatment records for your field.")
+    expect(page).not_to have_content("Add your first entry")
+    click_on "Round Up"
+    expect(page).to have_content("Round Up")
+    expect(page).to have_content("My Field 0")
+    expect(page).to have_content("10")
+    expect(page).to have_content("0.40")
+  end
+
 end

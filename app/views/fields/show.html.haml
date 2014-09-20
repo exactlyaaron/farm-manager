@@ -9,10 +9,9 @@
 -# - else
 %p= "Crop Price: No crop price data available"
 
-%h3= "Records"
-= link_to "Add entry", "/fields/#{@field.id}/treatments/new"
-
 .row
+  %h3= "Treatment Records"
+  = link_to "Add entry", "/fields/#{@field.id}/treatments/new"
   - if @treatments.length > 0
     %ul.treatments
       %li= "Application"
@@ -24,8 +23,9 @@
       %li= "Cost Per Acre"
       %li= "Total Cost"
     - @treatments.each do |treatment|
-      %ul.treatments
-        %li= treatment.supply.name
+      %ul.treatments-entry
+        %li
+          =link_to "#{treatment.supply.name}", "#{@field.id}/treatments/#{treatment.id}"
         %li= treatment.date.strftime("%Y-%m-%d")
         %li= treatment.supply.measure
         %li= treatment.quantity
@@ -33,9 +33,39 @@
         %li= number_to_currency(treatment.supply.unit_cost)
         %li= number_to_currency(treatment.supply.unit_cost * (treatment.quantity / @field.acreage))
         %li= number_to_currency(treatment.supply.unit_cost * treatment.quantity)
+        %li
+          = link_to "Edit", "#{@field.id}/treatments/#{treatment.id}/edit"
+        %li
+          = link_to "Delete", "#{@field.id}/treatments/#{treatment.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{treatment.supply.name} entry?" }
   - else
     %p= "You currenty have no treatment records for your field."
     = link_to "Add your first entry", "/fields/#{@field.id}/treatments/new"
+
+.row
+  %h3= "Harvest Records"
+  = link_to "Add Harvest Load", "/fields/#{@field.id}/loads/new"
+  - if @field.harvest_loads.length > 0
+    %ul.loads
+      %li= "Date"
+      %li= "Receipt Number"
+      %li= "Price Per Bushel"
+      %li= "Bushels Sold"
+      %li= "Income"
+
+    - @field.harvest_loads.each do |load|
+      %ul.loads-entry
+        %li= load.date.strftime("%Y-%m-%d")
+        %li= load.receipt_number
+        %li= number_to_currency(load.price_per_bushel)
+        %li= load.bushels_sold
+        %li= number_to_currency(load.bushels_sold * load.price_per_bushel)
+        %li
+          = link_to "Edit", "#{@field.id}/harvest_loads/#{load.id}/edit"
+        %li
+          = link_to "Delete", "#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
+  - else
+    %p= "You currenty have no harvest records for your field."
+    = link_to "Add your first harvest record", "/fields/#{@field.id}/treatments/new"
 
 %p= "NOTES: #{@field.notes}"
 %p= "Total Field Cost: #{number_to_currency(@total_field_cost)}"

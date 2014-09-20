@@ -1,5 +1,5 @@
 %h2= "#{@kind.pluralize.capitalize}"
-= link_to "Add Purchase", "#{@kind}/new"
+= link_to "Add Purchase", new_specific_supply_path
 
 - if @list.length > 0
   %ul.headers

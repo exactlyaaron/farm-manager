@@ -15,7 +15,7 @@ class TreatmentsController < ApplicationController
     @fields = current_user.fields.all
     if @treatment.save
       flash[:notice] = "#{@treatment.supply.name} has been added to your field."
-      redirect_to field_path
+      redirect_to field_path(@field)
     else
       flash[:alert] = "Treatment could not be added."
       redirect_to new_field_path
@@ -23,13 +23,13 @@ class TreatmentsController < ApplicationController
   end
 
   def destroy
-    # @id = params[:id]
-    # Field.destroy(@id)
-    # redirect_to :back
+    @id = params[:treatment_id]
+    Treatment.destroy(@id)
+    redirect_to :back
   end
 
   def edit
-    # @field = Field.find(params[:id])
+    @treatment = Treatment.find(params[:treatment_id])
   end
 
   def new
@@ -40,20 +40,22 @@ class TreatmentsController < ApplicationController
   #   @total_acreage = @fields.sum(:acreage)
   # end
 
-  # def show
-  #   @field = Field.find(params[:id])
-  # end
+  def show
+    @field = Field.find(params[:id])
+    @treatment = Treatment.find(params[:treatment_id])
+  end
 
-  # def update
-  #   @field = Field.find(params[:id])
-  #   if @field.update(field_params)
-  #     flash[:notice] = "#{@field.name} has been updated."
-  #     redirect_to field_path(@field)
-  #   else
-  #     flash[:alert] = "Field could not be updated."
-  #     render edit_field_path(@field)
-  #   end
-  # end
+  def update
+    @field = Field.find(params[:id])
+    @treatment = Treatment.find(params[:treatment_id])
+    if @treatment.update(treatment_params)
+      flash[:notice] = "Treatment record was updated successfully."
+      redirect_to field_path(@field)
+    else
+      flash[:alert] = "Treatment could not be updated."
+      render edit_field_path(@field)
+    end
+  end
 
   protected
 
