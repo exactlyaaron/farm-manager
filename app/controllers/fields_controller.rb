@@ -1,6 +1,22 @@
+require 'quandl/client'
+
+Quandl::Client.use 'http://quandl.com/api/'
+# Quandl::Client.token = ENV['quandl_key']
+
 class FieldsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user_fields
+
+  def find_data
+    datasets = Quandl::Client::Dataset.find('CHRIS/CME_C1')
+    d = datasets.data.collapse('weekly').trim_start((Date.today - 30).to_s).trim_end(Date.today.to_s)
+    @prices = []
+    @changes = []
+    d.each do |array|
+      @prices << array[4]
+      @changes << array[5]
+    end
+  end
 
   def find_user_fields
     @fields = current_user.fields.all
@@ -37,6 +53,7 @@ class FieldsController < ApplicationController
   end
 
   def show
+    find_data
     @field = Field.find(params[:id])
     @treatments = @field.treatments
     @total_field_cost = 0

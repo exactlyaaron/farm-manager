@@ -22,7 +22,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'pg'
-gem 'quandl'
+gem 'quandl_client'
 gem 'simple_form'
 
 group :development do

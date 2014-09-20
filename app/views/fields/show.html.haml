@@ -1,3 +1,6 @@
+%h2= @prices
+%h2= @changes
+
 %h2= "#{@field.name}"
 = link_to "Edit", edit_field_path
 = link_to "Delete", field_path, method: :delete, data: { confirm: "Are you certain you want to delete #{@field.name}?" }
