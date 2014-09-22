@@ -20,6 +20,9 @@
 
 %hr/
 %h3 MARKET PRICES
+
+#graph.aGraph
+
 %h4 CORN
 %h5= "#{number_to_currency(@latest_corn_price)}"
 %h5= "#{number_to_currency(@corn_change)}"
@@ -48,8 +51,7 @@
 
 %h2 WEATHER
 %div.weather-current
+  %p= "Current Conditions"
 %div.weather-forecast
   %p= "Forecast"
-
--# %script{:src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyA124Pwk7_h-GBHDTrFzwANvu0k1v6gYXA&sensor=true"}
 

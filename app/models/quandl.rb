@@ -13,7 +13,7 @@ class QuandlData < ActiveRecord::Base
       crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
     end
     if crop_data
-      @dataset = crop_data.data.collapse('weekly').trim_start((Date.today - 30).to_s).trim_end(Date.today.to_s)
+      @dataset = crop_data.data.collapse('weekly').trim_start((Date.today - 90).to_s).trim_end(Date.today.to_s)
     end
     return @dataset
   end

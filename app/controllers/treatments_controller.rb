@@ -37,10 +37,6 @@ class TreatmentsController < ApplicationController
     @treatment = Treatment.new
   end
 
-  # def index
-  #   @total_acreage = @fields.sum(:acreage)
-  # end
-
   def show
     @field = Field.find(params[:id])
     @treatment = Treatment.find(params[:treatment_id])

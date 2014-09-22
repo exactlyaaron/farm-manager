@@ -16,3 +16,34 @@ ul.headers, ul.entry, ul.fields-headers, ul.fields-entry, ul.treatments, ul.trea
     margin: 0;
   }
 }
+
+
+
+
+path {
+  stroke-width: 2;
+  fill: none;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+  // opacity: 0;
+}
+
+.x.axis .minor {
+  stroke-opacity: 0;
+}
+
+.x.axis path, .y.axis path {
+  display: none;
+  stroke: #000;
+}
+
+
+.y.axis line {
+  opacity:0;
+}

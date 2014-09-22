@@ -1,8 +1,3 @@
-# require 'quandl/client'
-
-# Quandl::Client.use 'http://quandl.com/api/'
-# Quandl::Client.token = ENV['QUANDL_KEY']
-
 class Field < ActiveRecord::Base
   include PublicActivity::Common
   # tracked except: :update, owner: ->(controller, model) { controller && controller.current_user }
