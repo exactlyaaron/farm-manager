@@ -27,6 +27,10 @@ gem 'quandl_client'
 gem 'simple_form'
 gem 'whenever', :require => false
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'better_errors'
   gem 'html2haml'
