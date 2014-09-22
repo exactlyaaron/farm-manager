@@ -29,7 +29,7 @@ feature "Adding a field" do
     click_on "Add New Field"
     fill_in "Name", with: "Sample Field 1"
     fill_in "Acreage", with: "40"
-    fill_in "Crop", with: "Corn"
+    select "Corn", from: "Crop"
     fill_in "Notes", with: "This is my first corn field"
     click_on "Save Field"
     expect(page).to have_content("Sample Field 1 has been added to your fields")
@@ -50,7 +50,6 @@ feature "Adding a field" do
     Fabricate(:field, user: @user)
     visit "/dashboard"
     click_on "Manage My Fields"
-    # save_and_open_page
     first('ul.fields-entry > li > a').click
     expect(page).to have_content("My Field")
     expect(page).to have_content("notes about the field")

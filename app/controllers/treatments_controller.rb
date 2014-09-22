@@ -11,9 +11,9 @@ class TreatmentsController < ApplicationController
   def create
     @field = Field.find(params[:id])
     @treatment = @field.treatments.create(treatment_params)
-    # @treatment.date = params[:date].strftime("%m/%d/%Y")
     @fields = current_user.fields.all
     if @treatment.save
+      @treatment.create_activity :create, owner: current_user
       flash[:notice] = "#{@treatment.supply.name} has been added to your field."
       redirect_to field_path(@field)
     else
@@ -24,6 +24,7 @@ class TreatmentsController < ApplicationController
 
   def destroy
     @id = params[:treatment_id]
+    Treatment.find(@id).create_activity :destroy, owner: current_user
     Treatment.destroy(@id)
     redirect_to :back
   end

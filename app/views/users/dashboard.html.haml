@@ -1,7 +1,40 @@
 %h1 User Dashboard
 
-%h3 BUDGET:
-%h3= "#{number_to_currency(current_user.budget)}"
+%h3 FINANCES
+%hr/
+%h4 BUDGET:
+%h5= "#{number_to_currency(current_user.budget)}"
+%h4 EXPENSES:
+%h5= "#{number_to_currency(@total_expenses)}"
+%h4 NET INCOME:
+%h5= "#{number_to_currency(@total_income)}"
+
+%h4 PROJECTED REVENUE (based on 175 bushels/acre yields):
+%h5= "#{number_to_currency(@projected_revenue)}"
+
+%hr/
 
 = link_to "Manage My Supplies", supplies_path
+%br
 = link_to "Manage My Fields", fields_path
+
+%hr/
+%h3 MARKET PRICES
+%h4 CORN
+%h5= "#{number_to_currency(@latest_corn_price)}"
+%h5= "#{number_to_currency(@corn_change)}"
+%h5= "#{@corn_prices}"
+
+%h4 SOYBEANS
+%h5= "#{number_to_currency(@latest_soybean_price)}"
+%h5= "#{number_to_currency(@soybean_change)}"
+%h5= "#{@soybean_prices}"
+
+%h4 WHEAT
+%h5= "#{number_to_currency(@latest_wheat_price)}"
+%h5= "#{number_to_currency(@wheat_change)}"
+%h5= "#{@wheat_prices}"
+
+%h2 Activities
+- @activities.each do |activity|
+  %p= render_activity activity

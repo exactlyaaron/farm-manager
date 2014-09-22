@@ -19,6 +19,7 @@ class SuppliesController < ApplicationController
   def create
     @supply = current_user.supplies.create(supply_params)
     if @supply.price && @supply.quantity
+      @supply.create_activity :create, owner: current_user
       @supply.unit_cost = (@supply.price / @supply.quantity).round(2)
     end
     @supplies = current_user.supplies.all
@@ -34,6 +35,7 @@ class SuppliesController < ApplicationController
   def destroy
     @kind = params[:kind]
     @id = params[:id]
+    Supply.find(@id).create_activity :destroy, owner: current_user
     Supply.destroy(@id)
     redirect_to :back
   end

@@ -1,4 +1,6 @@
 class Treatment < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :field
   belongs_to :supply
 

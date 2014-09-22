@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   get 'supplies/:kind' => 'supplies#show_kind', as: :show_supply
   delete 'supplies/:kind/:id' => 'supplies#destroy', as: :destroy_supply
 
+  # resources :fields do
+  #   resources :treatments, :harvest_loads
+  # end
+
   resources :fields
+  resources :activities
 
   get '/fields/:id/treatments/new', to: 'treatments#new', as: :new_treatment
   post '/fields/:id/treatments/new', to: 'treatments#create', as: :create_treatment

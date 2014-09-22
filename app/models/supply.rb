@@ -1,4 +1,6 @@
 class Supply < ActiveRecord::Base
+  include PublicActivity::Common
+
   belongs_to :user
 
   validates_presence_of :kind

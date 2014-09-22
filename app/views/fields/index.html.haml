@@ -25,4 +25,5 @@
 
 .row
   %p= "Total Acreage: #{@total_acreage} acres"
-  %p= "Projected Revenue: ???"
+  %p= "Projected Revenue (based on 175 bushels/acre): #{number_to_currency(@projected_revenue)}"
+  %p= "Total Harvested Income: #{number_to_currency(@total_income)}"

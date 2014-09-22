@@ -7,10 +7,12 @@
 
 %p= "Acreage: #{@field.acreage}"
 %p= "Crop: #{@field.crop}"
--# - if @field.crop_price
--#   %p= "Crop Price: number_to_currency(#{@field.crop_price})"
--# - else
-%p= "Crop Price: No crop price data available"
+- if @field.crop_price
+  %p= "Crop Price: #{number_to_currency(@field.crop_price)}"
+- else
+  %p= "Crop Price: No crop price data available"
+%p= "Estimated Field Revenue (based on 175 bushel/acre yield): "
+%h4= "#{number_to_currency(@projected_revenue)}"
 
 .row
   %h3= "Treatment Records"
@@ -73,5 +75,6 @@
 
 %p= "NOTES: #{@field.notes}"
 %p= "Total Field Cost: #{number_to_currency(@total_field_cost)}"
+%h4= "Total Harvested Income: #{number_to_currency(@total_income)}"
 
 .row

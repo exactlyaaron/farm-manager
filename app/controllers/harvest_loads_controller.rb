@@ -12,6 +12,7 @@ class HarvestLoadsController < ApplicationController
     @harvest_load = @field.harvest_loads.create(harvest_load_params)
     @fields = current_user.fields.all
     if @harvest_load.save
+      @harvest_load.create_activity :create, owner: current_user
       flash[:notice] = "Harvest record has been added to your field."
       redirect_to field_path(@field)
     else
@@ -22,6 +23,7 @@ class HarvestLoadsController < ApplicationController
 
   def destroy
     @id = params[:harvest_load_id]
+    HarvestLoad.find(@id).create_activity :destroy, owner: current_user
     HarvestLoad.destroy(@id)
     redirect_to :back
   end
@@ -33,15 +35,6 @@ class HarvestLoadsController < ApplicationController
   def new
     @harvest_load = HarvestLoad.new
   end
-
-  # def index
-  #   @total_acreage = @fields.sum(:acreage)
-  # end
-
-  # def show
-  #   @field = Field.find(params[:id])
-  #   @treatment = Treatment.find(params[:treatment_id])
-  # end
 
   def update
     @field = Field.find(params[:id])

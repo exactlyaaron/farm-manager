@@ -1,3 +1,8 @@
+require 'quandl/client'
+Quandl::Client.use 'http://quandl.com/api/'
+Quandl::Client.token = ENV['QUANDL_KEY']
+
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -35,5 +40,36 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def get_crop_data(crop)
+    if crop == 'corn'
+      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_C1')
+    elsif crop == 'soybeans'
+      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_S1')
+    elsif crop == 'wheat'
+      crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
+    end
+    @dataset = crop_data.data.collapse('weekly').trim_start((Date.today - 30).to_s).trim_end(Date.today.to_s)
+    return @dataset
+  end
+
+  def get_crop_prices(crop)
+    @prices = []
+    dataset = get_crop_data(crop)
+    dataset.each do |array|
+      @prices << array[4]
+    end
+    return @prices
+  end
+
+  def get_latest_price(crop)
+    prices = get_crop_prices(crop)
+    @latest_price = prices[0]
+  end
+
+  def get_latest_change(crop)
+    dataset = get_crop_data(crop)
+    @latest_change = dataset.first[5]
   end
 end

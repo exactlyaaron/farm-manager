@@ -22,6 +22,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'pg'
+gem 'public_activity'
 gem 'quandl_client'
 gem 'simple_form'
 
