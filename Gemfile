@@ -25,6 +25,7 @@ gem 'pg'
 gem 'public_activity'
 gem 'quandl_client'
 gem 'simple_form'
+gem 'whenever', :require => false
 
 group :development do
   gem 'better_errors'
