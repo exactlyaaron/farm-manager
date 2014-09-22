@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 #ruby-gemset=farmmanager
 ruby '2.1.2'
 gem 'rails', '4.1.5'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier'
 gem 'coffee-rails', '~> 4.0.0'
