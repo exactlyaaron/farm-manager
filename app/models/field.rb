@@ -1,3 +1,8 @@
+# require 'quandl/client'
+
+# Quandl::Client.use 'http://quandl.com/api/'
+# Quandl::Client.token = ENV['QUANDL_KEY']
+
 class Field < ActiveRecord::Base
   include PublicActivity::Common
   # tracked except: :update, owner: ->(controller, model) { controller && controller.current_user }
@@ -9,10 +14,6 @@ class Field < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :acreage
   validates_presence_of :crop
-
-  # def self.total_cost=(t)
-  #   @total_cost = t
-  # end
 
   def cost
     @total_cost = 0

@@ -1,32 +1,8 @@
-require 'quandl/client'
-
-Quandl::Client.use 'http://quandl.com/api/'
-Quandl::Client.token = ENV['QUANDL_KEY']
+require 'quandl'
 
 class FieldsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user_fields
-
-  def find_data(crop)
-    if crop == 'Corn'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_C1')
-    elsif crop == 'Soybeans'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_S1')
-    elsif crop == 'Wheat'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
-    end
-
-    if crop_data
-      dataset = crop_data.data.collapse('weekly').trim_start((Date.today - 30).to_s).trim_end(Date.today.to_s)
-      @prices = []
-      @changes = []
-      dataset.each do |array|
-        @prices << array[4]
-        @changes << array[5]
-      end
-      @latest_price = dataset.first[4]
-    end
-  end
 
   def find_user_fields
     @fields = current_user.fields.all
@@ -35,7 +11,7 @@ class FieldsController < ApplicationController
   def create
     @fields = current_user.fields.all
     @field = current_user.fields.create(field_params)
-    find_data(field_params[:crop])
+    @latest_price = QuandlData.get_latest_price(field_params[:crop])
     if @latest_price
       @field.crop_price = (@latest_price / 100)
     else
@@ -95,6 +71,14 @@ class FieldsController < ApplicationController
     else
       flash[:alert] = "Field could not be updated."
       render edit_field_path(@field)
+    end
+  end
+
+  def update_crop_prices
+    @fields = Field.all
+    @fields.each do |field|
+      @new_price = Field.get_crop_price(field.crop)
+      field.update(crop_price: @new_price)
     end
   end
 

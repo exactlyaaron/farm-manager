@@ -9,17 +9,17 @@ class UsersController < ApplicationController
   end
 
   def get_prices
-    # @corn_prices = current_user.get_crop_prices("corn")
-    # @latest_corn_price = current_user.get_latest_price("corn")
-    # @corn_change = current_user.get_latest_change("corn")
+    # @corn_prices = current_user.get_crop_prices("Corn")
+    # @latest_corn_price = current_user.get_latest_price("Corn")
+    # @corn_change = current_user.get_latest_change("Corn")
 
-    # @soybean_prices = current_user.get_crop_prices("soybeans")
-    # @latest_soybean_price = current_user.get_latest_price("soybeans")
-    # @soybean_change = current_user.get_latest_change("soybeans")
+    # @soybean_prices = current_user.get_crop_prices("Soybeans")
+    # @latest_soybean_price = current_user.get_latest_price("Soybeans")
+    # @soybean_change = current_user.get_latest_change("Soybeans")
 
-    # @wheat_prices = current_user.get_crop_prices("wheat")
-    # @latest_wheat_price = current_user.get_latest_price("wheat")
-    # @wheat_change = current_user.get_latest_change("wheat")
+    # @wheat_prices = current_user.get_crop_prices("Wheat")
+    # @latest_wheat_price = current_user.get_latest_price("Wheat")
+    # @wheat_change = current_user.get_latest_change("Wheat")
   end
 
   def get_finance_numbers
