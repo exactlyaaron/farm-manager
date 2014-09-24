@@ -12,7 +12,7 @@ feature "Editing a treatment on a field" do
   scenario "- with only one existing treatment" do
     Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     first('ul.fields-entry > li > a').click
     within("ul.treatments-entry") do
       click_on "Edit"

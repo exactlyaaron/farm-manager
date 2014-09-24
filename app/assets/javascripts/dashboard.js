@@ -4,23 +4,23 @@
   $(document).ready(initialize);
 
   function initialize(){
-    getLocation();
+    // getLocation();
     getNews();
-    drawGraph(gon.corn_prices, "yellow");
-    drawGraph(gon.soybean_prices, "green");
-    drawGraph(gon.wheat_prices, "orange");
+    drawGraph(gon.corn_prices, "#ede821", "corn");
+    drawGraph(gon.soybean_prices, "#51c461", "soybeans");
+    drawGraph(gon.wheat_prices, "#c48d48", "wheat");
   }
 
-  function drawGraph(crop, color){
+  function drawGraph(crop_data, color, crop){
     /* implementation heavily influenced by http://bl.ocks.org/1166403 */
     
     // define dimensions of graph
-    var m = [10, 10, 10, 10]; // margins
-    var w = 250 - m[1] - m[3]; // width
-    var h = 150 - m[0] - m[2]; // height
+    var m = [0, 0, 0, 0]; // margins
+    var w = 130 - m[1] - m[3]; // width
+    var h = 35 - m[0] - m[2]; // height
     
     // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-    var data = crop;
+    var data = crop_data;
     data.reverse();
     var largest = Math.max.apply(Math, data);
     var smallest = Math.min.apply(Math, data);
@@ -28,7 +28,7 @@
     // X scale will fit all values from data[] within pixels 0-w
     var x = d3.scale.linear().domain([0, data.length]).range([0, w]);
     // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
-    var y = d3.scale.linear().domain([(smallest-50), (largest+50)]).range([h, 0]);
+    var y = d3.scale.linear().domain([(smallest-20), (largest+20)]).range([h, 0]);
       // automatically determining max range can work something like this
       // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
@@ -45,7 +45,7 @@
       })
 
       // Add an SVG element with the desired dimensions and margin.
-      var graph = d3.select("#graph").append("svg:svg")
+      var graph = d3.select("#graph-"+crop+"").append("svg:svg")
             .attr("width", w + m[1] + m[3])
             .attr("height", h + m[0] + m[2])
           .append("svg:g")
@@ -70,7 +70,7 @@
       
       // Add the line by appending an svg:path element with the data line we created above
       // do this AFTER the axes above so that the line is above the tick-lines
-      graph.append("svg:path").attr({"d": line(data), "stroke-linejoin": "round", "stroke": color});
+      graph.append("svg:path").attr({"d": line(data), "stroke-linejoin": "round", "stroke": color, "stroke-linecap": "round"});
   }
 
   function getLocation() {
@@ -83,11 +83,11 @@
   }
 
   function getNews(){
-    var url = 'http://api.usatoday.com/open/articles?tag=agriculture&count=10&encoding=json&api_key=2tpr8mjmcd79dh9ebffs6a8e';
+    var url = 'http://api.usatoday.com/open/articles?tag=agriculture&count=5&encoding=json&api_key=2tpr8mjmcd79dh9ebffs6a8e';
     $.getJSON(url, function(data){
       console.log(data);
       data.stories.forEach(function(story){
-        var string = '<li><p><a href="'+story.link+'">'+story.title+'</a></p><p>'+story.description+'</p></li>'
+        var string = '<li><p><a href="'+story.link+'">'+story.title+'</a></p><p class="news-description">'+story.description+'</p></li>'
         $('.news-articles ul').append(string);
       });
     });
@@ -103,7 +103,9 @@
     //     var state = data['location']['state'];
     //     var temp_f = data['current_observation']['temp_f'];
     //     var icon = data['current_observation']['icon_url'];
-    //     $('.weather-current').append('<p>Conditions in '+city+', '+state+'</p><img src="'+icon+'"><p>'+temp_f+' degrees</p>');
+    //     $('#icon').append('<img src="'+icon+'">');
+    //     $('#temp').append('<p>'+temp_f+'&#176;</p>');
+    //     $('.weather-current').prepend('<p>'+city+', '+state+' - '+data['current_observation']['icon']+'</p>');
     //   }
     // });
   }
@@ -116,11 +118,13 @@
     //     console.log(data)
     //     var days = data['forecast']['simpleforecast']['forecastday']
     //     days.forEach(function(day){
-    //       $('.weather-forecast').append('<img src="'+day['icon_url']+'">');
+    //       $('.weather-forecast').append('<div class="col-xs-3"><p class="day">'+day['date']['weekday_short']+'</p><img src="'+day['icon_url']+'"><p>'+day['high']['fahrenheit']+'&#176;</p></div>');
     //     });
     //   }
     // });
   }
+
+
 
 
 })();

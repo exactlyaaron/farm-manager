@@ -7,7 +7,7 @@ feature "Adding a supply" do
 
   scenario "- new user with no supplies" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     expect(page).to have_content("Chemicals")
     expect(page).to have_content("Fertilizer")
     expect(page).to have_content("Seed")
@@ -19,7 +19,7 @@ feature "Adding a supply" do
   scenario "- with one existing chemical" do
     Fabricate(:supply, user: @user, kind: "chemical")
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     expect(page).not_to have_content("You currently have not purchased any supplies")
     expect(page).to have_content("Total Cost: $10.00")
   end
@@ -31,7 +31,7 @@ feature "Adding a supply" do
     Fabricate(:supply, user: @user, kind: "seed")
     Fabricate(:supply, user: @user, kind: "other")
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     expect(page).not_to have_content("You currently have not purchased any supplies")
     expect(page).to have_content("$20.00")
     expect(page).to have_content("$10.00")
@@ -40,7 +40,7 @@ feature "Adding a supply" do
 
   scenario "Happy Path from supplies index" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Add Purchase"
     select "chemical", from: "Kind"
     select "2014", from: "supply_purchase_date_1i"
@@ -61,7 +61,7 @@ feature "Adding a supply" do
 
   scenario "from the chemicals page" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Chemicals"
     click_on "Add Purchase"
     select "chemical", from: "Kind"
@@ -82,7 +82,7 @@ feature "Adding a supply" do
 
   scenario "from the fertilizer page" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Fertilizer"
     click_on "Add Purchase"
     select "fertilizer", from: "Kind"
@@ -103,7 +103,7 @@ feature "Adding a supply" do
 
   scenario "from the seed page" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Seed"
     click_on "Add Purchase"
     select "seed", from: "Kind"
@@ -124,7 +124,7 @@ feature "Adding a supply" do
 
   scenario "skipping filling out the form" do
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Add Purchase"
     click_on "Add Purchase"
     expect(current_path).to eq new_supply_path

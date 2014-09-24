@@ -8,7 +8,7 @@ feature "Destroying a supply" do
   scenario "with one existing chemical" do
     Fabricate(:supply, user: @user, kind: "chemical")
     visit "/dashboard"
-    click_on "Manage My Supplies"
+    click_on "My Supplies"
     click_on "Chemicals"
     first('ul.entry > li > a').click
     expect(page).to have_content("Chemicals")

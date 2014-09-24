@@ -1,0 +1,33 @@
+.graph {
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  display:inline-block;
+}
+
+path {
+  stroke-width: 3;
+  fill: none;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+  // opacity: 0;
+}
+
+.x.axis .minor {
+  stroke-opacity: 0;
+}
+
+.x.axis path, .y.axis path {
+  display: none;
+  stroke: #000;
+}
+
+
+.y.axis line {
+  opacity:0;
+}

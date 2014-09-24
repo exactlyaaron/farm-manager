@@ -10,6 +10,15 @@ class Field < ActiveRecord::Base
   validates_presence_of :acreage
   validates_presence_of :crop
 
+  # def self.update_crop_prices
+  #   @fields = Field.all
+
+  #   @fields.each do |field|
+  #     @new_price = Field.get_crop_price(field.crop)
+  #     field.update(crop_price: @new_price)
+  #   end
+  # end
+
   def cost
     @total_cost = 0
     if self.treatments.length > 0

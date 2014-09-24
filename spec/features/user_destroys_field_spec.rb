@@ -8,7 +8,7 @@ feature "Destroying a supply" do
   scenario "with one existing field" do
     Fabricate(:field, user: @user)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     click_on "Delete"
     expect(page).to have_content("Fields")
     expect(Field.count).to eq 0

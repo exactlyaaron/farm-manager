@@ -9,7 +9,7 @@ feature "Destroying a harvest load from a field" do
   scenario "- with only one existing treatment" do
     Fabricate(:harvest_load, field: @field)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     first('ul.fields-entry > li > a').click
     within("ul.loads-entry") do
       click_on "Delete"

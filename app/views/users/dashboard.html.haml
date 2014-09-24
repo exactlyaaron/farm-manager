@@ -1,57 +1,110 @@
-%h1 User Dashboard
+.page-title
+  %h1 DASHBOARD
 
-%h3 FINANCES
-%hr/
-%h4 BUDGET:
-%h5= "#{number_to_currency(current_user.budget)}"
-%h4 EXPENSES:
-%h5= "#{number_to_currency(@total_expenses)}"
-%h4 NET INCOME:
-%h5= "#{number_to_currency(@total_income)}"
+.row{style: "margin-top: 15px;"}
+  .col-md-9
+    .row
+      .col-md-6#market-prices
+        .tile
+          .tile-title
+            %h2 
+              %i.fa.fa-line-chart{style: "font-size: 0.9em; margin-right: 7px;"}
+              = "MARKET PRICES"
+          .row.price-wrapper
+            .col-xs-2
+              %p.crop-title Corn
+            .col-xs-5
+              #graph-corn.graph
+            .col-xs-5.prices
+              - if @corn_change < 0
+                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@corn_change / 100)}"
+              - else
+                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@corn_change / 100)}"
+              
+              %p.inline.crop-price= "#{number_to_currency(@latest_corn_price / 100)}"
 
-%h4 PROJECTED REVENUE (based on 175 bushels/acre yields):
-%h5= "#{number_to_currency(@projected_revenue)}"
+          .row.price-wrapper
+            .col-xs-2
+              %p.crop-title Soybeans
+            .col-xs-5
+              #graph-soybeans.graph
+            .col-xs-5.prices
+              - if @soybean_change < 0
+                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@soybean_change / 100)}"
+              - else
+                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@soybean_change / 100)}"
+              
+              %p.inline.crop-price= "#{number_to_currency(@latest_soybean_price / 100)}"
 
-%hr/
+          .row.price-wrapper
+            .col-xs-2
+              %p.crop-title Wheat
+            .col-xs-5
+              #graph-wheat.graph
+            .col-xs-5.prices
+              - if @wheat_change < 0
+                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@wheat_change / 100)}"
+              - else
+                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@wheat_change / 100)}"
+              
+              %p.inline.crop-price= "#{number_to_currency(@latest_wheat_price / 100)}"
 
-= link_to "Manage My Supplies", supplies_path
-%br
-= link_to "Manage My Fields", fields_path
+      .col-md-6
+        .tile.short.manage
+          %a{:href => supplies_path}
+            %i.glyphicon.glyphicon-tasks{style: "font-size: .75em;"}
+            %p.inline= "My Supplies"
+        .tile.short.manage
+          %a{:href => fields_path}
+            %i.glyphicon.glyphicon-th-large{style: "font-size: .75em;"}
+            %p.inline= "My Fields"
+    .row
+      .col-md-5
+        .tile.medium
+          .tile-title
+            %h2 WEATHER CONDITIONS
+          .weather-current
+            .col-xs-6#icon
+            .col-xs-6#temp
+            
+      .col-md-7
+        .tile.medium
+          .tile-title
+            %h2 FORECAST
+          .weather-forecast
 
-%hr/
-%h3 MARKET PRICES
+    .row
+      .col-md-7
+        .tile
+          .tile-title
+            %h2 NEWS
+          %div.news-articles
+            %ul
+            
+      .col-md-5
+        .tile.activity
+          .tile-title
+            %h2 RECENT ACTIVITY
+          - @activities.each do |activity|
+            %p= render_activity activity
 
-#graph.aGraph
 
-%h4 CORN
-%h5= "#{number_to_currency(@latest_corn_price)}"
-%h5= "#{number_to_currency(@corn_change)}"
-%h5= "#{@corn_prices}"
+  .col-md-3#finances-sidebar
+    %h2 
+      %i.fa.fa-bar-chart{style: "font-size: 0.9em;"}
+      = "FINANCES"
+    %h4 BUDGET:
+    %h5= "#{number_to_currency(current_user.budget)}"
+    %h4 EXPENSES:
+    %h5= "#{number_to_currency(@total_expenses)}"
+    %h4 NET INCOME:
+    %h5#income= "#{number_to_currency(@total_income)}"
+    #projected
+      %h4 PROJECTED REVENUE 
+      %p#estimate (based on 175 bushels/acre yields):
+      %h5= "#{number_to_currency(@projected_revenue)}"
 
-%h4 SOYBEANS
-%h5= "#{number_to_currency(@latest_soybean_price)}"
-%h5= "#{number_to_currency(@soybean_change)}"
-%h5= "#{@soybean_prices}"
 
-%h4 WHEAT
-%h5= "#{number_to_currency(@latest_wheat_price)}"
-%h5= "#{number_to_currency(@wheat_change)}"
-%h5= "#{@wheat_prices}"
+= javascript_include_tag 'dashboard', 'data-turbolinks-track' => true
 
-%h2 Activities
-- @activities.each do |activity|
-  %p= render_activity activity
-
-- content_for :javascripts do
-  = javascript_include_tag "dashboard.js"
-
-%h2 NEWS
-%div.news-articles
-  %ul
-
-%h2 WEATHER
-%div.weather-current
-  %p= "Current Conditions"
-%div.weather-forecast
-  %p= "Forecast"
 

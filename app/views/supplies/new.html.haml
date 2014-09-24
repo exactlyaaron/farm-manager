@@ -1,9 +1,10 @@
-- if @kind == nil
-  %h2= "New Supplies Purchase"
-- else
-  %h2= "New #{@kind.capitalize} Purchase"
+.page-title.new
+  - if @kind == nil
+    %h1= "New Supplies Purchase"
+  - else
+    %h1= "New #{@kind.capitalize} Purchase"
 
-= simple_form_for @supply do |f|
+= simple_form_for(@supply) do |f|
   = f.error_notification
   .form-inputs
     - if @kind == nil
@@ -17,4 +18,5 @@
     = f.input :quantity, as: :integer, required: true
     = f.input :price, as: :decimal, required: true
   .form-actions
-    = f.button :submit, "Add Purchase"
+    .border  
+    = f.button :submit, "Add Purchase", class: "btn-big center"

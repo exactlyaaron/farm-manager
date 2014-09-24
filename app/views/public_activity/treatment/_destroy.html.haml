@@ -1,5 +1,6 @@
-%p= "deleted treatment:" 
-- if activity.trackable
-  =link_to activity.trackable.supply.name, activity.trackable.supply
-- else
-  which has since been removed
+%div
+  %p= "Removed treatment - " 
+  - if activity.trackable
+    =link_to activity.trackable.supply.name, activity.trackable.supply
+  - else
+    which has since been removed

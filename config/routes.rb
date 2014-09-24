@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :fields
   resources :activities
+  resources :crop_prices, only: [:index]
 
   get '/fields/:id/treatments/new', to: 'treatments#new', as: :new_treatment
   post '/fields/:id/treatments/new', to: 'treatments#create', as: :create_treatment

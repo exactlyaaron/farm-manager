@@ -1,0 +1,188 @@
+.tile {
+  min-height: 220px;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.tile.short {
+  min-height: 105px;
+  margin: 0 0 10px 0;
+}
+
+.tile.medium {
+  min-height: 165px;
+}
+
+.price-wrapper {
+  margin: 0 0 8px 0;
+}
+
+#market-prices {
+  // margin-bottom: 10px;
+
+  p.crop-title {
+    font-size:.9em;
+    margin: 10px 0 0 0;
+  }
+
+  .prices {
+    text-align:right;
+    padding-top: 10px;
+  }
+
+  p.crop-price {
+    font-weight: 600;
+    margin: 0 0 0 10px;
+  }
+
+  p.crop-change {
+    margin: 0;
+  }
+}
+
+.tile-title {
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 10px;
+
+  h2 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #999;
+    margin-top: 0;
+  }
+}
+
+.manage {
+  padding: 35px 0 0 25px;
+  a {
+    font-size: 2em;
+    color:$primary-color;
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+#finances-sidebar {
+  padding: 0 15px 25px 25px;
+
+  h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #ccc;
+    margin: 0 0 5px 0;
+    padding: 0 0 5px 0;
+    border-bottom: 2px solid #ddd;
+  }
+
+  h4 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #999;
+  }
+
+  h5 {
+    font-size: 1.5em;
+  }
+
+  h5#income {
+    font-weight: 600;
+    color:$primary-color;
+  }
+}
+
+#projected {
+  border-top: 2px solid #ddd;
+  padding-top: 10px;
+  margin-top: 15px;
+
+  h4 {
+    margin: 0;
+  }
+
+  p#estimate {
+    font-style: italic;
+    font-size: .8em;
+    color: #999;
+  }
+}
+
+.weather-current {
+  #temp {
+    font-size:2.4em;
+  }
+
+  p#weather-location {
+    font-size: .8em;
+  }
+}
+
+.weather-forecast {
+  div {
+    text-align: center;
+
+    p.day {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 1em;
+
+    }
+  }
+}
+
+.news-articles ul {
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0;
+  }
+
+  p.news-description {
+    font-size: .8em;
+    color:#999;
+    margin: 0 0 10px 0;
+  }
+
+  a {
+    color:$primary-color;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.activity {
+  p {
+    margin: 0;
+    display:inline-block;
+    color: #777;
+  }
+
+  a {
+    color: $primary-color;
+  }
+}
+
+@media(max-width:768px) {
+  .tile.short {
+    @include make-sm-column(6);
+    padding-bottom: 20px;
+  }
+
+  #market-prices {
+    .prices {
+      padding-top: 0px;
+    }
+    p.crop-price, p.crop-change {
+      margin: 0;
+      display:block;
+    }
+  }
+
+  #finances-sidebar {
+    padding: 25px;
+  }
+}

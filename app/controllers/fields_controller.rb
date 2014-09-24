@@ -11,7 +11,8 @@ class FieldsController < ApplicationController
   def create
     @fields = current_user.fields.all
     @field = current_user.fields.create(field_params)
-    @latest_price = QuandlData.get_latest_price(field_params[:crop])
+    crop_data = QuandlData.new(field_params[:crop])
+    @latest_price = crop_data.get_latest_price
     if @latest_price
       @field.crop_price = (@latest_price / 100)
     else
@@ -71,14 +72,6 @@ class FieldsController < ApplicationController
     else
       flash[:alert] = "Field could not be updated."
       render edit_field_path(@field)
-    end
-  end
-
-  def update_crop_prices
-    @fields = Field.all
-    @fields.each do |field|
-      @new_price = Field.get_crop_price(field.crop)
-      field.update(crop_price: @new_price)
     end
   end
 

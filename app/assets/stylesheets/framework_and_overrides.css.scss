@@ -2,6 +2,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+body {
+  font-family: "proxima-nova", sans-serif;
+  background-color: #eee;
+  color:#444;
+}
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -11,6 +17,10 @@ img {
 .navbar-brand {
   font-size: inherit;
   }
+
+.row {
+  margin-bottom: 10px;
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -31,6 +41,7 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -38,9 +49,27 @@ main {
   background-color: #eee;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin-top: 50px; // accommodate the navbar
   }
 section {
   @extend .row;
   margin-top: 20px;
   }
+
+.form-group {
+  margin-bottom: 3px;
+}
+
+input.form-control,input.form-control:focus, select.form-control, select.form-control:focus {
+    border:1px solid #ddd;
+    border-radius: 0;
+    box-shadow: none;
+   -webkit-box-shadow: none;
+   -moz-box-shadow: none;
+   -moz-transition: none;
+   -webkit-transition: none;
+}
+
+input.form-control:focus {
+  border: 1px solid $primary-color;
+}

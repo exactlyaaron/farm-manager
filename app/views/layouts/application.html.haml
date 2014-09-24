@@ -9,9 +9,45 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     %script{:src => "http://mbostock.github.com/d3/d3.v2.js"}
+    <script src="//use.typekit.net/qoy2gbg.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   %body
     %header
       = render 'layouts/navigation'
-    %main{:role => "main"}
-      = render 'layouts/messages'
-      = yield
+    #wrapper
+      #sidebar-wrapper
+        %ul.sidebar-nav
+          %li
+            %a{:href => dashboard_path} 
+              %i.fa.fa-home{style: "font-size: 0.9em; margin-right: 5px"}
+              = "Dashboard"
+          %li
+            %a{:href => supplies_path} 
+              %i.fa.fa-list{style: "font-size: 0.9em;margin-right: 5px"}
+              = "Supplies"
+          %li
+            %a{:href => fields_path}
+              %i.fa.fa-th-large{style: "font-size: 0.9em;margin-right: 5px"}
+              = "Fields"
+          %li
+            %a{:href => "#"}
+              %i.fa.fa-bar-chart{style: "font-size: 0.9em;margin-right: 5px"}
+              = "Finances"
+          %li
+            %a{:href => edit_user_registration_path}
+              %i.fa.fa-cog{style: "font-size: 0.9em;margin-right: 5px"}
+              = "Settings"
+      
+      #page-content-wrapper
+        .container-fluid
+
+          -# %a#menu-toggle.btn.btn-default{:href => "#menu-toggle"} Toggle Menu
+              
+          = render 'layouts/messages'
+          = yield
+    :javascript
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+      });

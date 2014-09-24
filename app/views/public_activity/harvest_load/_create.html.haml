@@ -1,5 +1,6 @@
-%p= "created Harvest load:" 
-- if activity.trackable
-  =link_to activity.trackable.name, activity.trackable
-- else
-  which has since been removed
+%div
+  %p= "Created Harvest load - " 
+  - if activity.trackable
+    =link_to activity.trackable.name, activity.trackable
+  - else
+    which has since been removed

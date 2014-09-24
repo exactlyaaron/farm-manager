@@ -17,7 +17,6 @@ feature "Users edits profile" do
     click_button "Update"
     expect(current_path).to eq dashboard_path
     expect(page).to have_content "account was updated"
-    expect(page).to have_content "New Name"
   end
 
   scenario "updates budget" do

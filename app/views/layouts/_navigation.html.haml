@@ -1,17 +1,17 @@
 -# navigation styled for Bootstrap 3.0
-%nav.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      = link_to 'Home', root_path, class: 'navbar-brand'
-      - if current_user
-        = current_user.email
-        - if current_user.name
-          = current_user.name
-    .collapse.navbar-collapse
-      %ul.nav.navbar-nav.navbar-right
-        = render 'layouts/navigation_links'
+%nav.navbar.navbar-fixed-top
+  .navbar-header
+    %button.navbar-toggle.pull-left#menu-toggle{:href => "#menu-toggle"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %i.glyphicon.glyphicon-user{:style => "font-size: 16px;color:#fff"}
+    = link_to 'Home', root_path, class: 'navbar-brand'
+  .collapse.navbar-collapse
+    - if current_user
+      %p#email.navbar-left= "Logged in as: #{current_user.email}"
+    %ul.nav.navbar-nav.navbar-right
+      = render 'layouts/navigation_links'

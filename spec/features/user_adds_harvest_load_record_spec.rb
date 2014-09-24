@@ -11,7 +11,7 @@ feature "Adding a harvest load record for a field" do
 
   scenario "- new field with no harvest loads" do
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     first('ul.fields-entry > li > a').click
     expect(page).to have_content("You currenty have no harvest records for your field.")
     expect(page).to have_content("Add your first load")
@@ -40,7 +40,7 @@ feature "Adding a harvest load record for a field" do
     Fabricate(:harvest_load, field: @field)
     Fabricate(:harvest_load, field: @field)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     first('ul.fields-entry > li > a').click
     expect(page).not_to have_content("You currenty have no harvest records for your field.")
     expect(page).not_to have_content("Add your first load")

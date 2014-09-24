@@ -1,9 +1,18 @@
 require 'quandl/client'
+require 'pry'
 
 Quandl::Client.use 'http://quandl.com/api/'
 Quandl::Client.token = ENV['QUANDL_KEY']
 
-class QuandlData < ActiveRecord::Base
+class QuandlData
+  def initialize(crop_name)
+    @crop_name = crop_name
+  end
+
+  def data
+    @data ||= self.class.get_crop_data(@crop_name)
+  end
+
   def self.get_crop_data(crop)
     if crop == 'Corn'
       crop_data = Quandl::Client::Dataset.find('CHRIS/CME_C1')
@@ -13,29 +22,28 @@ class QuandlData < ActiveRecord::Base
       crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
     end
     if crop_data
-      @dataset = crop_data.data.collapse('weekly').trim_start((Date.today - 90).to_s).trim_end(Date.today.to_s)
+      @dataset = crop_data.data.collapse('daily').trim_start(1.month.ago.to_s).trim_end(Date.today.to_s)
     end
     return @dataset
   end
 
-  def self.get_crop_prices(crop)
+  def get_crop_prices
     @prices = []
-    dataset = get_crop_data(crop)
-    if dataset
-      dataset.each do |array|
+    if data
+      data.each do |array|
         @prices << array[4]
       end
     end
     return @prices
   end
 
-  def self.get_latest_price(crop)
-    prices = get_crop_prices(crop)
+  def get_latest_price
+    prices = get_crop_prices
     @latest_price = prices[0]
   end
 
-  def self.get_latest_change(crop)
-    dataset = get_crop_data(crop)
-    @latest_change = dataset.first[5]
+  def get_latest_change
+    prices = get_crop_prices
+    @latest_change = prices[0] - prices[1]
   end
 end

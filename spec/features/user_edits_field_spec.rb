@@ -8,7 +8,7 @@ feature "Editing a field" do
   scenario "from the fields index page" do
     @field = Fabricate(:field, user: @user)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     click_on "Edit"
     fill_in "Name", with: "New Field Name"
     fill_in "Acreage", with: "45"
@@ -25,7 +25,7 @@ feature "Editing a field" do
   scenario "from the field show page" do
     @field = Fabricate(:field, user: @user)
     visit "/dashboard"
-    click_on "Manage My Fields"
+    click_on "My Fields"
     first('ul.fields-entry > li > a').click
     click_on "Edit"
     fill_in "Name", with: "Last Field"

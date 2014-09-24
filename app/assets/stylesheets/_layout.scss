@@ -1,0 +1,116 @@
+nav.navbar {
+  background-color: $primary-color;
+  color:#fff;
+  border:none;
+  padding: 0 20px;
+}
+
+.navbar-toggle .icon-bar {
+  background-color:#fff;
+}
+
+.navbar-header {
+  min-width: 225px;
+  background-image: url(image_path('farmware-logo.png'));
+  background-size: 200px auto;
+  background-repeat:no-repeat;
+  background-position: left center;
+  text-indent: -9999px;
+}
+
+ul.nav.navbar-nav > li > a {
+  background-color: $primary-color;
+  color:#fff;
+  font-size:.9em;
+}
+
+.nav.navbar-right > li > a:hover, ul.dropdown-menu > li > a:hover{
+  background-color: darken($primary-color, 3%);
+} 
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: darken($primary-color, 3%);
+}
+
+ul.dropdown-menu li a {
+  color:#333;
+}
+
+// .nav.navbar-right > li#fat-menu > a:hover, .nav .open > a, .navbar-nav > li > .dropdown-menu
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 200px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 200px;
+    width: 0;
+    height: 100%;
+    margin-left: -200px;
+    overflow-y: auto;
+    background: #ddd;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 200px;
+    margin-top: 7px;
+}
+
+#page-content-wrapper {
+    @extend .container;
+    background-color: #eee;
+    padding-bottom: 80px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 15px;
+    margin-top: 50px; 
+}
+
+#wrapper.toggled #page-content-wrapper {
+    // position: absolute;
+    width: inherit;
+    margin-right: -200px;
+}
+
+p#email {
+  margin-top: 25px;
+  font-size: .8em;
+}
+
+@media(max-width:768px) {
+  #page-content-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+  }
+
+  .navbar-header {
+    background-position: center;
+    padding: 0;
+    background-size: 170px auto;
+  }
+
+  ul.dropdown-menu li a {
+    color:#fff;
+  }
+
+  ul.dropdown-menu > li > a:hover {
+    color:#fff;
+  }
+}
