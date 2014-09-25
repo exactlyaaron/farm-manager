@@ -1,7 +1,7 @@
 Farm Manager
 ================
 
-https://travis-ci.org/exactlyaaron/farm-manager.svg?branch=master
+[![Build Status](https://travis-ci.org/exactlyaaron/farm-manager.svg?branch=master)](https://travis-ci.org/exactlyaaron/farm-manager)
 
 http://farmtastic.herokuapp.com
 
