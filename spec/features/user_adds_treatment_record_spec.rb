@@ -10,9 +10,8 @@ feature "Adding a treatment to a field" do
   end
 
   scenario "- new field with no treatments" do
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).to have_content("You currenty have no treatment records for your field.")
     expect(page).to have_content("Add your first entry")
     click_on "Add your first entry"
@@ -35,9 +34,8 @@ feature "Adding a treatment to a field" do
   scenario "- field with existing treatments" do
     Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
     Fabricate(:treatment, field: @field, supply: @supply2, quantity: 10)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).not_to have_content("You currenty have no treatment records for your field.")
     expect(page).not_to have_content("Add your first entry")
     click_on "Add entry"
@@ -55,7 +53,6 @@ feature "Adding a treatment to a field" do
     expect(page).to have_content("18")
     expect(page).to have_content("7.20")
     expect(page).to have_content("180")
-    # save_and_open_page
     expect(page).to have_content("Round Up")
     expect(page).to have_content("Atrazine")
     expect(page).to have_content("10")
@@ -66,9 +63,8 @@ feature "Adding a treatment to a field" do
   scenario "- views individual treatment record" do
     Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
     Fabricate(:treatment, field: @field, supply: @supply2, quantity: 10)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).not_to have_content("You currenty have no treatment records for your field.")
     expect(page).not_to have_content("Add your first entry")
     click_on "Round Up"

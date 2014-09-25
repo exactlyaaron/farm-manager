@@ -1,6 +1,6 @@
 %div
-  %p= "Recorded harvest load - " 
+  %p= "Recorded harvest load" 
   - if activity.trackable
-    =link_to activity.trackable.receipt_number, activity.trackable.field
+    =link_to "##{activity.trackable.receipt_number}", activity.trackable.field
   - else
     which has since been removed

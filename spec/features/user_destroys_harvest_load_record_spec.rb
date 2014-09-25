@@ -8,11 +8,13 @@ feature "Destroying a harvest load from a field" do
 
   scenario "- with only one existing treatment" do
     Fabricate(:harvest_load, field: @field)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
-    within("ul.loads-entry") do
-      click_on "Delete"
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
+    within('#pane2') do
+      # first('tr.loads-entry > td > a').click
+      within("tr.loads-entry") do
+        click_on "Delete"
+      end
     end
     expect(page).to have_content("You currenty have no harvest records for your field.")
     expect(page).to have_content("Add your first load")

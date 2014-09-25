@@ -7,10 +7,9 @@ feature "Destroying a supply" do
 
   scenario "with one existing chemical" do
     Fabricate(:supply, user: @user, kind: "chemical")
-    visit "/dashboard"
-    click_on "My Supplies"
+    visit "/supplies"
     click_on "Chemicals"
-    first('ul.entry > li > a').click
+    click_on "Delete"
     expect(page).to have_content("CHEMICALS")
     expect(Supply.count).to eq 0
     expect(page).to have_content("You have not yet purchased any chemicals")

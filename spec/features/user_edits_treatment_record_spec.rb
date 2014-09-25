@@ -11,12 +11,11 @@ feature "Editing a treatment on a field" do
 
   scenario "- with only one existing treatment" do
     Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
-    within("ul.treatments-entry") do
-      click_on "Edit"
-    end
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
+    first('tr.treatments-entry > td > a').click
+    click_on "Edit"
+
     select "Atrazine", from: "Supply"
     select "2014", from: "treatment_date_1i"
     select "March", from: "treatment_date_2i"

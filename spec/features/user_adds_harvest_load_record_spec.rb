@@ -10,9 +10,8 @@ feature "Adding a harvest load record for a field" do
   end
 
   scenario "- new field with no harvest loads" do
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).to have_content("You currenty have no harvest records for your field.")
     expect(page).to have_content("Add your first load")
     click_on "Add your first load"
@@ -33,15 +32,13 @@ feature "Adding a harvest load record for a field" do
     expect(page).to have_content("1.50")
     expect(page).to have_content("25")
     expect(page).to have_content("37.50")
-    expect(page).to have_content("Grand Total")
   end
 
   scenario "- field with previous harvest loads" do
     Fabricate(:harvest_load, field: @field)
     Fabricate(:harvest_load, field: @field)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).not_to have_content("You currenty have no harvest records for your field.")
     expect(page).not_to have_content("Add your first load")
     click_on "Add Harvest Load"
@@ -63,7 +60,6 @@ feature "Adding a harvest load record for a field" do
     expect(page).to have_content("1.50")
     expect(page).to have_content("25")
     expect(page).to have_content("37.50")
-    expect(page).to have_content("Grand Total")
     expect(page).to have_content("57.50")
   end
 

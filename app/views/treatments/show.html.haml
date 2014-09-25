@@ -1,13 +1,37 @@
-%h2= "Treatment Details"
+.page-title
+  %h1= "Treatment Details"
 
-= link_to "Edit", "#{@field.id}/treatments/#{@treatment.id}/edit"
-= link_to "Delete", "#{@field.id}/treatments/#{@treatment.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{@treatment.supply.name} entry?" }
+  = link_to "Edit", "/fields/#{@field.id}/treatments/#{@treatment.id}/edit", class: "btn"
+  = link_to "Delete", "/fields/#{@field.id}/treatments/#{@treatment.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{@treatment.supply.name} entry?" }, class: "btn"
 
-%h4= "Field: #{@field.name}"
-%h4= "Application: #{@treatment.supply.name}"
-%h4= "Measurement: #{@treatment.supply.measure}"
-%h4= "Total Applied: #{@treatment.quantity}"
-%h4= "Total Applied Per Acre: #{(@treatment.quantity / @field.acreage)}"
-%h4= "Unit Cost: #{number_to_currency(@treatment.supply.unit_cost)}"
-%h4= "Cost Per Acre: #{number_to_currency(@treatment.supply.unit_cost * (@treatment.quantity / @field.acreage))}"
-%h4= "Total Cost: #{number_to_currency(@treatment.supply.unit_cost * @treatment.quantity)}"
+.treatment-container
+  %h4= "Field: "
+  %p.number-good= "#{@field.name}"
+  .clear
+  %h4= "Application: "
+  %p.number-good= "#{@treatment.supply.name}"
+  .clear
+
+  %h4= "Measurement: "
+  %p.number-good= "#{@treatment.supply.measure}"
+  .clear
+
+  %h4= "Total Applied: "
+  %p.number-good= "#{@treatment.quantity}"
+  .clear
+
+  %h4= "Total Applied Per Acre: "
+  %p.number-good= "#{(@treatment.quantity / @field.acreage)}"
+
+  .border
+  %h4= "Unit Cost: "
+  %p.number-good= "#{number_to_currency(@treatment.supply.unit_cost)}"
+  .clear
+
+  %h4= "Cost Per Acre: "
+  %p.number-good= "#{number_to_currency(@treatment.supply.unit_cost * (@treatment.quantity / @field.acreage))}"
+  .clear
+
+  %h4= "Total Cost: "
+  %p.number-good= "#{number_to_currency(@treatment.supply.unit_cost * @treatment.quantity)}"
+  .clear

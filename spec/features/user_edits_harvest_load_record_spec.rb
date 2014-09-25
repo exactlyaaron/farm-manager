@@ -8,10 +8,9 @@ feature "Editing a harvest load on a field" do
 
   scenario "- with only one existing treatment" do
     Fabricate(:harvest_load, field: @field)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
-    within("ul.loads-entry") do
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
+    within("tr.loads-entry") do
       click_on "Edit"
     end
     fill_in "Receipt number", with: "13"

@@ -7,8 +7,7 @@ feature "Editing a supply" do
 
   scenario "with one existing chemical" do
     @supply = Fabricate(:supply, user: @user, kind: "chemical")
-    visit "/dashboard"
-    click_on "My Supplies"
+    visit "/supplies"
     click_on "Chemicals"
     click_on "Edit"
     select "2014", from: "supply_purchase_date_1i"

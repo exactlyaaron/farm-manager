@@ -97,7 +97,7 @@
                   %td
                     = link_to "Edit", "#{@field.id}/harvest_loads/#{load.id}/edit"
                   %td
-                    = link_to "Delete", "#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
+                    = link_to "Delete", "/fields/#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
         - else
           %p= "You currenty have no harvest records for your field."
           = link_to "Add your first load", "/fields/#{@field.id}/harvest_loads/new", class: "btn"

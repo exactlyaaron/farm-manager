@@ -39,11 +39,15 @@ class QuandlData
 
   def get_latest_price
     prices = get_crop_prices
-    @latest_price = prices[0]
+    if prices
+      @latest_price = prices[0]
+    end
   end
 
   def get_latest_change
     prices = get_crop_prices
-    @latest_change = prices[0] - prices[1]
+    if prices
+      @latest_change = prices[0] - prices[1]
+    end
   end
 end

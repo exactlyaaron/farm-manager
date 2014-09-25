@@ -6,8 +6,7 @@ feature "Adding a field" do
   end
 
   scenario "- new user with no fields" do
-    visit "/dashboard"
-    click_on "My Fields"
+    visit "/fields"
     expect(page).to have_content("Add New Field")
     expect(page).to have_content("0 acres")
     expect(page).to have_content("You currently don't have any fields.")
@@ -17,15 +16,13 @@ feature "Adding a field" do
     Fabricate(:field, user: @user)
     Fabricate(:field, user: @user)
     Fabricate(:field, user: @user)
-    visit "/dashboard"
-    click_on "My Fields"
+    visit "/fields"
     expect(page).not_to have_content("You currently don't have any fields.")
     expect(page).to have_content("75 acres")
   end
 
   scenario "Happy Path from fields index" do
-    visit "/dashboard"
-    click_on "My Fields"
+    visit "/fields"
     click_on "Add New Field"
     fill_in "Name", with: "Sample Field 1"
     fill_in "Acreage", with: "40"
@@ -39,8 +36,7 @@ feature "Adding a field" do
   end
 
   scenario "skipping filling out the form" do
-    visit "/dashboard"
-    click_on "My Fields"
+    visit "/fields"
     click_on "Add New Field"
     click_on "Save Field"
     expect(current_path).to eq new_field_path
@@ -48,9 +44,8 @@ feature "Adding a field" do
 
   scenario "- viewing the basic field details" do
     Fabricate(:field, user: @user)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
     expect(page).to have_content("MY FIELD")
     expect(page).to have_content("notes about the field")
     expect(page).to have_content("Total Field Cost")

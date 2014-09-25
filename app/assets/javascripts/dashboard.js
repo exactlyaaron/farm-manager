@@ -4,7 +4,7 @@
   $(document).ready(initialize);
 
   function initialize(){
-    getLocation();
+    // getLocation();
     getNews();
     drawGraph(gon.corn_prices, "#ede821", "corn");
     drawGraph(gon.soybean_prices, "#51c461", "soybeans");

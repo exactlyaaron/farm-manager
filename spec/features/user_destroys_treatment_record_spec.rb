@@ -11,10 +11,9 @@ feature "Destroying a treatment from a field" do
 
   scenario "- with only one existing treatment" do
     Fabricate(:treatment, field: @field, supply: @supply1, quantity: 10)
-    visit "/dashboard"
-    click_on "My Fields"
-    first('ul.fields-entry > li > a').click
-    within("ul.treatments-entry") do
+    visit "/fields"
+    first('tr.fields-entry > td > a').click
+    within("tr.treatments-entry") do
       click_on "Delete"
     end
     expect(page).to have_content("You currenty have no treatment records for your field.")
