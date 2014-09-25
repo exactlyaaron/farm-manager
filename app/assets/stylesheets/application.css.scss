@@ -1,6 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+ @import "variables";
+
+ @import "dashboard";
+ @import "fields";
+ @import "finances";
+ @import "framework_and_overrides";
+ @import "general";
+ @import "graphs";
+ @import "layout";
+ @import "sidebar";
+ @import "supplies";
+ @import "tables";
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -16,15 +29,3 @@
  *= require_tree .
  *= require_self
  */
- @import "variables";
-
- @import "dashboard";
- @import "fields";
- @import "finances";
- @import "framework_and_overrides";
- @import "general";
- @import "graphs";
- @import "layout";
- @import "sidebar";
- @import "supplies";
- @import "tables";
