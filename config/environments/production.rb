@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.assets.precompile += %w( *.css *.js )
+  config.assets.precompile += %w( *.scss *.js )
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
