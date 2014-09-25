@@ -3,7 +3,7 @@ Farm Manager
 
 [![Build Status](https://travis-ci.org/exactlyaaron/farm-manager.svg?branch=master)](https://travis-ci.org/exactlyaaron/farm-manager)
 
-http://farmtastic.herokuapp.com
+http://farmware.herokuapp.com
 
 FarmManager is a web-application built on Ruby on Rails designed to make tracking of farm operations effortless. Use FarmManager to track your spraying records, acreage cost, and harvest yield income.
 
