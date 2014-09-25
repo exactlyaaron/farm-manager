@@ -96,7 +96,7 @@
     %h4 BUDGET:
     %h5= "#{number_to_currency(current_user.budget)}"
     %h4 EXPENSES:
-    %h5= "#{number_to_currency(@total_expenses)}"
+    %h5.red= "#{number_to_currency(@total_expenses)}"
     %h4 NET INCOME:
     %h5#income= "#{number_to_currency(@total_income)}"
     #projected

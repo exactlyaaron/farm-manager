@@ -1,32 +1,41 @@
-%h2= "#{@kind.pluralize.capitalize}"
-= link_to "Add Purchase", new_specific_supply_path
+.page-title
+  %h3 SUPPLIES
+  %i.glyphicon.glyphicon-play
+  %h1= "#{@kind.pluralize.upcase}"
+  = link_to "Add Purchase", new_specific_supply_path, class: "btn"
 
 - if @list.length > 0
-  %ul.headers
-    %li.header= "Date"
-    %li.header= "#{@kind.capitalize}"
-    %li.header= "Vendor"
-    %li.header= "Measure"
-    %li.header= "Quantity"
-    %li.header= "Price"
-    %li.header= "Cost Per"
+  %table.supplies-list
+    %thead
+      %tr
+        %th.header= "Date"
+        %th.header= "#{@kind.capitalize}"
+        %th.header= "Vendor"
+        %th.header= "Measure"
+        %th.header= "Quantity"
+        %th.header= "Price"
+        %th.header= "Cost Per"
+        %th
+        %th
+    %tbody
+      - @list.each do |entry|
+        %tr.supplies-entry
+          %td= entry.purchase_date
+          %td= entry.name
+          %td= entry.vendor
+          %td= entry.measure
+          %td= entry.quantity
+          %td= "#{number_to_currency(entry.price)}"
+          %td= "#{number_to_currency(entry.price.to_f / entry.quantity.to_f)}"
+          %td
+            = link_to "Delete", "#{@kind}/#{entry.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{entry.name}?" }
+          %td
+            = link_to "Edit", edit_supply_path(entry)
 
-  - @list.each do |entry|
-    %ul.entry
-      %li= entry.purchase_date
-      %li= entry.name
-      %li= entry.vendor
-      %li= entry.measure
-      %li= entry.quantity
-      %li= "#{number_to_currency(entry.price)}"
-      %li= "#{number_to_currency(entry.price.to_f / entry.quantity.to_f)}"
-      %li
-        = link_to "Delete", "#{@kind}/#{entry.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{entry.name}?" }
-      %li
-        = link_to "Edit", edit_supply_path(entry)
-
-  %p= "#{number_to_currency(@list_total)}"
+  .border
+  %p.inline TOTAL:
+  %p.inline.total-amount= "#{number_to_currency(@list_total)}"
 
 - else
   %h3= "You have not yet purchased any #{@kind.pluralize}"
-  = link_to "Add Your First Purchase", "#{@kind}/new"
+  = link_to "Add Your First Purchase", new_specific_supply_path

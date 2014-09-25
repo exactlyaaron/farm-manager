@@ -1,7 +1,8 @@
-- if @kind == nil
-  %h2= "Edit Supply Details"
-- else
-  %h2= "Edit #{@kind.capitalize} Details"
+.page-title
+  - if @kind == nil
+    %h1= "Edit Supply Details"
+  - else
+    %h1= "Edit #{@kind.capitalize} Details"
 
 = simple_form_for @supply do |f|
   = f.error_notification
@@ -16,5 +17,6 @@
     = f.input :measure, collection: ["oz", "qt", "lb", "bag", "acre", "other"], prompt: "Select the measurement", required: true
     = f.input :quantity, as: :integer, required: true
     = f.input :price, as: :decimal, required: true
+  .border
   .form-actions
     = f.button :submit, "Update Purchase"

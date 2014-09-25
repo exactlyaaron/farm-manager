@@ -1,0 +1,23 @@
+.page-title
+  %h1 FINANCES
+
+.finances-container
+  %p.label BUDGET:
+  %p.amount= "#{number_to_currency(@budget)}"
+  =link_to "Edit", edit_user_registration_path, class: "btn right"
+  .border
+
+  %p.label EXPENSES:
+  %p.amount.red= "#{number_to_currency(@total_expenses)}"
+  .border
+
+  %p.label NET INCOME:
+  %p.amount.green= "#{number_to_currency(@total_income)}"
+  .border
+
+  .row
+    .col-sm-8
+      %p.label PROJECTED PROFIT:
+      %p.note (based on 175/acre yield)
+    .col-sm-4
+      %p.amount.right.green= "#{number_to_currency(@projected_revenue)}"

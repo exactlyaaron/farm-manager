@@ -11,7 +11,7 @@ feature "Destroying a supply" do
     click_on "My Supplies"
     click_on "Chemicals"
     first('ul.entry > li > a').click
-    expect(page).to have_content("Chemicals")
+    expect(page).to have_content("CHEMICALS")
     expect(Supply.count).to eq 0
     expect(page).to have_content("You have not yet purchased any chemicals")
     expect(page).to have_content("Add Your First Purchase")

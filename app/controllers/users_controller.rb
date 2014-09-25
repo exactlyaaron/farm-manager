@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: current_user.id).limit(8)
   end
 
+  def finances
+    get_finance_numbers
+    @budget = current_user.budget
+  end
+
   def get_prices
     @corn_data = QuandlData.new("Corn")
     @corn_prices = @corn_data.get_crop_prices
@@ -35,14 +40,9 @@ class UsersController < ApplicationController
     @supplies = current_user.supplies;
 
     @total_expenses = 0    
-    @fields.each do |field|
-      @total_expenses += field.cost
-    end
-
     @supplies.each do |supply|
       @total_expenses += supply.price
     end
-
 
     @total_income = 0
     @fields.each do |field|

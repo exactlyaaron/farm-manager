@@ -19,7 +19,7 @@ feature "Editing a supply" do
     select "bag", from: "Measure"
     fill_in "Price", with: "200.00"
     click_on "Update Purchase"
-    expect(page).to have_content("Chemicals")
+    expect(page).to have_content("CHEMICALS")
     expect(Supply.count).to eq 1
     expect(page).to have_content("New Chemical Name")
     expect(page).to have_content("New Vendor")

@@ -4,7 +4,7 @@
   $(document).ready(initialize);
 
   function initialize(){
-    // getLocation();
+    getLocation();
     getNews();
     drawGraph(gon.corn_prices, "#ede821", "corn");
     drawGraph(gon.soybean_prices, "#51c461", "soybeans");
@@ -94,34 +94,34 @@
   }
 
   function getWeatherConditions(position){
-    // $.ajax({
-    //   url : "http://api.wunderground.com/api/bd42f70292516b80/geolookup/conditions/q/"+position.coords.latitude+","+position.coords.longitude+".json",
-    //   dataType : "jsonp",
-    //   success : function(data) {
-    //     console.log(data)
-    //     var city = data['location']['city'];
-    //     var state = data['location']['state'];
-    //     var temp_f = data['current_observation']['temp_f'];
-    //     var icon = data['current_observation']['icon_url'];
-    //     $('#icon').append('<img src="'+icon+'">');
-    //     $('#temp').append('<p>'+temp_f+'&#176;</p>');
-    //     $('.weather-current').prepend('<p>'+city+', '+state+' - '+data['current_observation']['icon']+'</p>');
-    //   }
-    // });
+    $.ajax({
+      url : "http://api.wunderground.com/api/bd42f70292516b80/geolookup/conditions/q/"+position.coords.latitude+","+position.coords.longitude+".json",
+      dataType : "jsonp",
+      success : function(data) {
+        console.log(data)
+        var city = data['location']['city'];
+        var state = data['location']['state'];
+        var temp_f = data['current_observation']['temp_f'];
+        var icon = data['current_observation']['icon_url'];
+        $('#icon').append('<img src="'+icon+'">');
+        $('#temp').append('<p>'+temp_f+'&#176;</p>');
+        $('.weather-current').prepend('<p>'+city+', '+state+' - '+data['current_observation']['icon']+'</p>');
+      }
+    });
   }
 
   function getWeatherForecast(position){
-    // $.ajax({
-    //   url : "http://api.wunderground.com/api/bd42f70292516b80/geolookup/forecast/q/"+position.coords.latitude+","+position.coords.longitude+".json",
-    //   dataType : "jsonp",
-    //   success : function(data) {
-    //     console.log(data)
-    //     var days = data['forecast']['simpleforecast']['forecastday']
-    //     days.forEach(function(day){
-    //       $('.weather-forecast').append('<div class="col-xs-3"><p class="day">'+day['date']['weekday_short']+'</p><img src="'+day['icon_url']+'"><p>'+day['high']['fahrenheit']+'&#176;</p></div>');
-    //     });
-    //   }
-    // });
+    $.ajax({
+      url : "http://api.wunderground.com/api/bd42f70292516b80/geolookup/forecast/q/"+position.coords.latitude+","+position.coords.longitude+".json",
+      dataType : "jsonp",
+      success : function(data) {
+        console.log(data)
+        var days = data['forecast']['simpleforecast']['forecastday']
+        days.forEach(function(day){
+          $('.weather-forecast').append('<div class="col-xs-3"><p class="day">'+day['date']['weekday_short']+'</p><img src="'+day['icon_url']+'"><p>'+day['high']['fahrenheit']+'&#176;</p></div>');
+        });
+      }
+    });
   }
 
 

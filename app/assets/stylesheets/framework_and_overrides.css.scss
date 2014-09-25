@@ -56,11 +56,15 @@ section {
   margin-top: 20px;
   }
 
+form {
+  margin-top: 10px;
+}
+
 .form-group {
   margin-bottom: 3px;
 }
 
-input.form-control,input.form-control:focus, select.form-control, select.form-control:focus {
+input.form-control,input.form-control:focus, select.form-control, select.form-control:focus, textarea.form-control, textarea.form-control:focus {
     border:1px solid #ddd;
     border-radius: 0;
     box-shadow: none;
@@ -68,6 +72,14 @@ input.form-control,input.form-control:focus, select.form-control, select.form-co
    -moz-box-shadow: none;
    -moz-transition: none;
    -webkit-transition: none;
+}
+
+textarea {
+  min-height: 85px;
+}
+
+textarea:focus {
+  border: 1px solid $primary-color;
 }
 
 input.form-control:focus {

@@ -1,4 +1,5 @@
-%h2= "New Field"
+.page-title
+  %h1= "NEW FIELD"
 
 = simple_form_for @field do |f|
   = f.error_notification
@@ -7,5 +8,6 @@
     = f.input :acreage, as: :integer, required: true
     = f.input :crop, collection: ["Corn", "Soybeans", "Wheat"], prompt: "Select a Crop", required: true
     = f.input :notes, as: :text
+  .border
   .form-actions
     = f.button :submit, "Save Field"

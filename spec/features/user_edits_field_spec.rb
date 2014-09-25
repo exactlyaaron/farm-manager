@@ -31,6 +31,7 @@ feature "Editing a field" do
     fill_in "Name", with: "Last Field"
     fill_in "Acreage", with: "45"
     fill_in "Crop", with: "New Crop"
+    fill_in "Notes", with: "Notes here"
     click_on "Update Field"
     expect(Field.count).to eq 1
     expect(Field.last.name).to eq "Last Field"
@@ -38,6 +39,7 @@ feature "Editing a field" do
     expect(page).to have_content("Last Field")
     expect(page).to have_content("45")
     expect(page).to have_content("New Crop")
+    expect(page).to have_content("Notes here")
   end
 
 

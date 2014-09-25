@@ -16,19 +16,19 @@
 .supply-title
   %h2
     = link_to "Fertilizer", 'supplies/fertilizer', class: "supply-kind"
-    = link_to "SHOW ALL", 'supplies/chemical', class: "btn"
+    = link_to "SHOW ALL", 'supplies/fertilizer', class: "btn"
   %p.amount= "#{number_to_currency(@fertilizer_total)}"
 
 .supply-title
   %h2
     = link_to "Seed", 'supplies/seed', class: "supply-kind"
-    = link_to "SHOW ALL", 'supplies/chemical', class: "btn"
+    = link_to "SHOW ALL", 'supplies/seed', class: "btn"
   %p.amount= "#{number_to_currency(@seed_total)}"
 
 .supply-title
   %h2
     = link_to "Other", 'supplies/other_supplies', class: "supply-kind"
-    = link_to "SHOW ALL", 'supplies/chemical', class: "btn"
+    = link_to "SHOW ALL", 'supplies/other_supplies', class: "btn"
   %p.amount= "#{number_to_currency(@other_total)}"
 
 .total

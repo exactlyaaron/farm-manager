@@ -51,7 +51,7 @@ feature "Adding a field" do
     visit "/dashboard"
     click_on "My Fields"
     first('ul.fields-entry > li > a').click
-    expect(page).to have_content("My Field")
+    expect(page).to have_content("MY FIELD")
     expect(page).to have_content("notes about the field")
     expect(page).to have_content("Total Field Cost")
   end

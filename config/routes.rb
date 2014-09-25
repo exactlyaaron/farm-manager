@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :user, :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => :registrations }
   root to: 'visitors#index'
   get '/dashboard', to: 'users#dashboard'
+  get '/finances', to: 'users#finances'
 
   resources :supplies, :only => [:index, :create, :new, :edit, :destroy, :update]
   

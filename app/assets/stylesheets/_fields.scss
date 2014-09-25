@@ -1,0 +1,57 @@
+.fields-summary {
+  p.summary-label {
+    color:#777;
+    text-transform: uppercase;
+    font-size: 1em;
+    margin: 0;
+  }
+
+  p.summary-stat {
+    color:$primary-color;
+    font-weight: 600;
+    font-size: 1.5em;
+    margin: 0 0 15px 0;
+  }
+}
+
+.field-info {
+  padding: 10px 0 0 0;
+  p {
+    display:inline-block;
+    vertical-align: middle;
+  }
+
+  p.label {
+    color:#999;
+    font-size: 1em;
+    font-weight: 400;
+  }
+
+  p.label.small {
+    font-size: .8em;
+    margin: 0;
+  }
+
+  p.value {
+    font-size: 1.5em;
+    font-weight: 600;
+    color:$primary-color;
+  }
+}
+
+.fields-container {
+  padding: 20px 20px 0px 20px;
+}
+
+.field-table {
+  padding: 15px;
+}
+
+.field-totals {
+  padding: 0 20px;
+}
+
+.field-total {
+  text-align: right;
+  padding-right: 20px;
+}

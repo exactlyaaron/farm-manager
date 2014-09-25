@@ -1,80 +1,114 @@
-%h2= @prices
-%h2= @changes
+.page-title
+  %h3 FIELD
+  %i.glyphicon.glyphicon-play
+  %h1.name= "#{@field.name.upcase}"
+  = link_to "Delete", field_path, method: :delete, data: { confirm: "Are you certain you want to delete #{@field.name}?" }, class: "btn"
+  = link_to "Edit", edit_field_path, class: "btn"
 
-%h2= "#{@field.name}"
-= link_to "Edit", edit_field_path
-= link_to "Delete", field_path, method: :delete, data: { confirm: "Are you certain you want to delete #{@field.name}?" }
+.field-info
+  .row
+    .col-sm-6
+      %p.label= "Crop: "
+      %p.value= "#{@field.crop}"
+    .col-sm-6
+      %p.label= "Acreage: "
+      %p.value= "#{@field.acreage}"
+    
+  .border
 
-%p= "Acreage: #{@field.acreage}"
-%p= "Crop: #{@field.crop}"
-- if @field.crop_price
-  %p= "Crop Price: #{number_to_currency(@field.crop_price)}"
-- else
-  %p= "Crop Price: No crop price data available"
-%p= "Estimated Field Revenue (based on 175 bushel/acre yield): "
-%h4= "#{number_to_currency(@projected_revenue)}"
+  .row  
+    .col-sm-6
+      %p.label= "Crop Price: "
+      %p.value= "#{number_to_currency(@field.crop_price)}"
+    .col-sm-6
+      %p.label.small= "Estimated Field Revenue (based on 175 bushel/acre yield): "
+      %p.value= "#{number_to_currency(@projected_revenue)}"
 
-.row
-  %h3= "Treatment Records"
-  = link_to "Add entry", "/fields/#{@field.id}/treatments/new"
-  - if @treatments.length > 0
-    %ul.treatments
-      %li= "Application"
-      %li= "Date"
-      %li= "Measurement"
-      %li= "Total Applied"
-      %li= "Total Applied Per Acre"
-      %li= "Unit Cost"
-      %li= "Cost Per Acre"
-      %li= "Total Cost"
-    - @treatments.each do |treatment|
-      %ul.treatments-entry
-        %li
-          =link_to "#{treatment.supply.name}", "#{@field.id}/treatments/#{treatment.id}"
-        %li= treatment.date.strftime("%Y-%m-%d")
-        %li= treatment.supply.measure
-        %li= treatment.quantity
-        %li= (treatment.quantity / @field.acreage)
-        %li= number_to_currency(treatment.supply.unit_cost)
-        %li= number_to_currency(treatment.supply.unit_cost * (treatment.quantity / @field.acreage))
-        %li= number_to_currency(treatment.supply.unit_cost * treatment.quantity)
-        %li
-          = link_to "Edit", "#{@field.id}/treatments/#{treatment.id}/edit"
-        %li
-          = link_to "Delete", "#{@field.id}/treatments/#{treatment.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{treatment.supply.name} entry?" }
-  - else
-    %p= "You currenty have no treatment records for your field."
-    = link_to "Add your first entry", "/fields/#{@field.id}/treatments/new"
+.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#pane1"} Treatment Records
+    %li
+      %a{"data-toggle" => "tab", :href => "#pane2"} Harvest Loads
 
-.row
-  %h3= "Harvest Records"
-  = link_to "Add Harvest Load", "/fields/#{@field.id}/harvest_loads/new"
-  - if @field.harvest_loads.length > 0
-    %ul.loads
-      %li= "Date"
-      %li= "Receipt Number"
-      %li= "Price Per Bushel"
-      %li= "Bushels Sold"
-      %li= "Income"
+  .tab-content
+    #pane1.tab-pane.active
+      .field-table
+        = link_to "Add entry", "/fields/#{@field.id}/treatments/new", class: "btn"
+        .border
+        - if @treatments.length > 0
+          %table.treatments-list
+            %thead
+              %tr
+                %th= "Application"
+                %th= "Date"
+                %th= "Measurement"
+                %th= "Total Applied"
+                %th= "Total Applied Per Acre"
+                %th= "Unit Cost"
+                %th= "Cost Per Acre"
+                %th= "Total Cost"
+                %th
+                %th
+            %tbody
+              - @treatments.each do |treatment|
+                %tr.treatments-entry
+                  %td
+                    =link_to "#{treatment.supply.name}", "#{@field.id}/treatments/#{treatment.id}"
+                  %td= treatment.date.strftime("%Y-%m-%d")
+                  %td= treatment.supply.measure
+                  %td= treatment.quantity
+                  %td= (treatment.quantity / @field.acreage)
+                  %td= number_to_currency(treatment.supply.unit_cost)
+                  %td= number_to_currency(treatment.supply.unit_cost * (treatment.quantity / @field.acreage))
+                  %td= number_to_currency(treatment.supply.unit_cost * treatment.quantity)
+                  %td
+                    = link_to "Edit", "#{@field.id}/treatments/#{treatment.id}/edit"
+                  %td
+                    = link_to "Delete", "#{@field.id}/treatments/#{treatment.id}", method: :delete, data: { confirm: "Are you certain you want to delete #{treatment.supply.name} entry?" }
+        - else
+          %p= "You currenty have no treatment records for your field."
+          = link_to "Add your first entry", "/fields/#{@field.id}/treatments/new", class: "btn"
 
-    - @field.harvest_loads.each do |load|
-      %ul.loads-entry
-        %li= load.date.strftime("%Y-%m-%d")
-        %li= load.receipt_number
-        %li= number_to_currency(load.price_per_bushel)
-        %li= load.bushels_sold
-        %li= number_to_currency(load.bushels_sold * load.price_per_bushel)
-        %li
-          = link_to "Edit", "#{@field.id}/harvest_loads/#{load.id}/edit"
-        %li
-          = link_to "Delete", "#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
-    %p= "Grand Total: #{number_to_currency(@total_income)}"
-  - else
-    %p= "You currenty have no harvest records for your field."
-    = link_to "Add your first load", "/fields/#{@field.id}/harvest_loads/new"
+    #pane2.tab-pane
+      .field-table
+        = link_to "Add Harvest Load", "/fields/#{@field.id}/harvest_loads/new", class: "btn"
+        .border
+        - if @field.harvest_loads.length > 0
+          %table.loads-list
+            %thead
+              %tr
+                %th= "Date"
+                %th= "Receipt Number"
+                %th= "Price Per Bushel"
+                %th= "Bushels Sold"
+                %th= "Income"
+                %th
+                %th
 
-%p= "NOTES: #{@field.notes}"
-%p= "Total Field Cost: #{number_to_currency(@total_field_cost)}"
-%h4= "Total Harvested Income: #{number_to_currency(@total_income)}"
-
-.row
+            %tbody
+              - @field.harvest_loads.each do |load|
+                %tr.loads-entry
+                  %td= load.date.strftime("%Y-%m-%d")
+                  %td= load.receipt_number
+                  %td= number_to_currency(load.price_per_bushel)
+                  %td= load.bushels_sold
+                  %td= number_to_currency(load.bushels_sold * load.price_per_bushel)
+                  %td
+                    = link_to "Edit", "#{@field.id}/harvest_loads/#{load.id}/edit"
+                  %td
+                    = link_to "Delete", "#{@field.id}/harvest_loads/#{load.id}", method: :delete, data: { confirm: "Are you certain you want to delete harvest record?" }
+        - else
+          %p= "You currenty have no harvest records for your field."
+          = link_to "Add your first load", "/fields/#{@field.id}/harvest_loads/new", class: "btn"
+.field-totals
+  .row
+    .col-sm-4
+      - if @field.notes
+        %p= "NOTES: "
+        %p.notes= "#{@field.notes}"
+    .col-sm-8.field-total
+      %p= "Total Field Cost:"
+      %p.number-good= "#{number_to_currency(@total_field_cost)}"
+      %p= "Total Harvested Income:"
+      %p.number-good= "#{number_to_currency(@total_income)}"

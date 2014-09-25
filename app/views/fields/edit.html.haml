@@ -1,4 +1,5 @@
-%h2= "Edit Field Information"
+.page-title
+  %h1= "Edit Field Information"
 
 = simple_form_for @field do |f|
   = f.error_notification
@@ -7,5 +8,6 @@
     = f.input :acreage, required: true
     = f.input :crop, required: true
     = f.input :notes, as: :text, required: true
+  .border
   .form-actions
     = f.button :submit, "Update Field"

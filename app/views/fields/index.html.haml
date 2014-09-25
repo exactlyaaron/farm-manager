@@ -1,29 +1,39 @@
-%h1 Fields
+.page-title
+  %h1 FIELDS
 
-= link_to "Add New Field", new_field_path
+  = link_to "Add New Field", new_field_path, class: "btn"
 
 - if @fields.empty?
   %p You currently don't have any fields.
   = link_to "Add your first field!", new_field_path
 
-.row
-  %ul.fields-headers
-    %li= "Name"
-    %li= "Acreage"
-    %li= "Crop"
+.fields-container
+  .row
+    %table.fields-list
+      %thead
+        %tr
+          %th.header= "Name"
+          %th.header= "Acreage"
+          %th.header= "Crop"
+          %th
+          %th
+      %tbody
+        - @fields.each do |field|
+          %tr.fields-entry
+            %td
+              = link_to "#{field.name}", field_path(field), class: "field-name"
+            %td= field.acreage
+            %td= field.crop
+            %td
+              = link_to "Edit", edit_field_path(field)
+            %td
+              = link_to "Delete", field_path(field), method: :delete, data: { confirm: "Are you certain you want to delete #{field.name}?" }
 
-  - @fields.each do |field|
-    %ul.fields-entry
-      %li
-        = link_to "#{field.name}", field_path(field), class: "field-name"
-      %li= field.acreage
-      %li= field.crop
-      %li
-        = link_to "Edit", edit_field_path(field)
-      %li
-        = link_to "Delete", field_path(field), method: :delete, data: { confirm: "Are you certain you want to delete #{field.name}?" }
-
-.row
-  %p= "Total Acreage: #{@total_acreage} acres"
-  %p= "Projected Revenue (based on 175 bushels/acre): #{number_to_currency(@projected_revenue)}"
-  %p= "Total Harvested Income: #{number_to_currency(@total_income)}"
+.border
+.fields-summary
+  %p.summary-label= "Total Acreage: "
+  %p.summary-stat= "#{@total_acreage} acres"
+  %p.summary-label= "Total Harvested Income: "
+  %p.summary-stat= "#{number_to_currency(@total_income)}"
+  %p.summary-label= "Projected Revenue (based on 175 bushels/acre): "
+  %p.summary-stat= "#{number_to_currency(@projected_revenue)}"

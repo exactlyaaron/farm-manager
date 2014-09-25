@@ -66,7 +66,8 @@ class FieldsController < ApplicationController
 
   def update
     @field = Field.find(params[:id])
-    if @field.update(field_params)
+    edit_params = params.require(:field).permit(:name, :acreage, :crop, :notes)
+    if @field.update(edit_params)
       flash[:notice] = "#{@field.name} has been updated."
       redirect_to field_path(@field)
     else
