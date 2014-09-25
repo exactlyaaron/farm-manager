@@ -51,6 +51,7 @@ class QuandlData
   end
 
   def get_latest_price
+    @latest_price = 0
     prices = get_crop_prices
     if prices
       @latest_price = prices[0]
@@ -61,11 +62,13 @@ class QuandlData
   end
 
   def get_latest_change
+    @latest_change = 0
     prices = get_crop_prices
     if prices
       @latest_change = prices[0] - prices[1]
     else
       @latest_change = 0
     end
+    return @latest_change
   end
 end
