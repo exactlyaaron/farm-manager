@@ -26,7 +26,7 @@ Other Technologies
 * Sass
 * RSpec/Capybara testing suite
 * Postgres database
-* OmniAuth
+* Devise/OmniAuth
 
 
 Contact

@@ -28,7 +28,7 @@ gem 'pry'
 gem 'public_activity'
 gem 'quandl_client'
 gem 'simple_form'
-# gem 'whenever', :require => false
+gem 'whenever', :require => false
 
 group :production do
   gem 'rails_12factor'
