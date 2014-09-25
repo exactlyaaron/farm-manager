@@ -15,12 +15,25 @@ class QuandlData
 
   def self.get_crop_data(crop)
     if crop == 'Corn'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_C1')
+      crop_data = Rails.cache.fetch("corn_data", :expires_in => 3.hours) do
+        puts "||||||||||||||||||||| CALLING API"
+        Quandl::Client::Dataset.find('CHRIS/CME_C1')
+      end
+      # crop_data = Quandl::Client::Dataset.find('CHRIS/CME_C1')
     elsif crop == 'Soybeans'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/CME_S1')
+      crop_data = Rails.cache.fetch("soybean_data", :expires_in => 3.hours) do
+        puts "||||||||||||||||||||| CALLING API"
+        Quandl::Client::Dataset.find('CHRIS/CME_S1')
+      end
+      # crop_data = Quandl::Client::Dataset.find('CHRIS/CME_S1')
     elsif crop == 'Wheat'
-      crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
+      crop_data = Rails.cache.fetch("wheat_data", :expires_in => 3.hours) do
+        puts "||||||||||||||||||||| CALLING API"
+        Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
+      end
+      # crop_data = Quandl::Client::Dataset.find('CHRIS/ICE_IW1')
     end
+
     if crop_data
       @dataset = crop_data.data.collapse('daily').trim_start(1.month.ago.to_s).trim_end(Date.today.to_s)
     end
@@ -41,13 +54,18 @@ class QuandlData
     prices = get_crop_prices
     if prices
       @latest_price = prices[0]
+    else
+      @latest_price = 9999
     end
+    return @latest_price
   end
 
   def get_latest_change
     prices = get_crop_prices
     if prices
       @latest_change = prices[0] - prices[1]
+    else
+      @latest_change = 0
     end
   end
 end

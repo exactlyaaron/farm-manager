@@ -13,7 +13,7 @@ class FieldsController < ApplicationController
     @field = current_user.fields.create(field_params)
     crop_data = QuandlData.new(field_params[:crop])
     @latest_price = crop_data.get_latest_price
-    if @latest_price
+    if @latest_price < 5000
       @field.crop_price = (@latest_price / 100)
     else
       @field.crop_price = 0

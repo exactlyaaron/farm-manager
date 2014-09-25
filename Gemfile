@@ -19,6 +19,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'figaro'
 gem 'gon'
+gem 'newrelic_rpm'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
@@ -34,7 +35,7 @@ group :production do
 end
 
 group :development do
-  gem 'better_errors'
+  # gem 'better_errors'
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
