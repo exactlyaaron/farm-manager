@@ -1,0 +1,15 @@
+$primary-color: #2db56e;
+$red: #eb6347;
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "dashboard";
+@import "fields";
+@import "finances";
+@import "framework_and_overrides";
+@import "general";
+@import "graphs";
+@import "layout";
+@import "sidebar";
+@import "supplies";
+@import "tables";
