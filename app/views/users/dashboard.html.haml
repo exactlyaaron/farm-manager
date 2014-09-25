@@ -17,9 +17,13 @@
               #graph-corn.graph
             .col-xs-5.prices
               - if @corn_change < 0
-                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@corn_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #eb6347;" }
+                  %i.fa.fa-caret-down
+                  = "#{number_to_currency(@corn_change / 100)}"
               - else
-                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@corn_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #2db56e;" }
+                  %i.fa.fa-caret-up
+                  = "#{number_to_currency(@corn_change / 100)}"
               
               %p.inline.crop-price= "#{number_to_currency(@latest_corn_price / 100)}"
 
@@ -30,9 +34,13 @@
               #graph-soybeans.graph
             .col-xs-5.prices
               - if @soybean_change < 0
-                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@soybean_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #eb6347;" }
+                  %i.fa.fa-caret-down
+                  = "#{number_to_currency(@soybean_change / 100)}"
               - else
-                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@soybean_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #2db56e;" }
+                  %i.fa.fa-caret-up
+                  = "#{number_to_currency(@soybean_change / 100)}"
               
               %p.inline.crop-price= "#{number_to_currency(@latest_soybean_price / 100)}"
 
@@ -43,9 +51,13 @@
               #graph-wheat.graph
             .col-xs-5.prices
               - if @wheat_change < 0
-                %p.inline.crop-change{ :style => "color: #eb6347;" }= "#{number_to_currency(@wheat_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #eb6347;" }
+                  %i.fa.fa-caret-down
+                  = "#{number_to_currency(@wheat_change / 100)}"
               - else
-                %p.inline.crop-change{ :style => "color: #2db56e;" }= "#{number_to_currency(@wheat_change / 100)}"
+                %p.inline.crop-change{ :style => "color: #2db56e;" }
+                  %i.fa.fa-caret-up
+                  = "#{number_to_currency(@wheat_change / 100)}"
               
               %p.inline.crop-price= "#{number_to_currency(@latest_wheat_price / 100)}"
 

@@ -35,7 +35,6 @@ class SuppliesController < ApplicationController
   def destroy
     @kind = params[:kind]
     @id = params[:id]
-    Supply.find(@id).create_activity :destroy, owner: current_user
     Supply.destroy(@id)
     redirect_to :back
   end

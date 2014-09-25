@@ -24,7 +24,7 @@ class TreatmentsController < ApplicationController
 
   def destroy
     @id = params[:treatment_id]
-    Treatment.find(@id).create_activity :destroy, owner: current_user
+    # Treatment.find(@id).create_activity :destroy, owner: current_user
     Treatment.destroy(@id)
     redirect_to :back
   end

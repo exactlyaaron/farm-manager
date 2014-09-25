@@ -23,7 +23,6 @@ class HarvestLoadsController < ApplicationController
 
   def destroy
     @id = params[:harvest_load_id]
-    HarvestLoad.find(@id).create_activity :destroy, owner: current_user
     HarvestLoad.destroy(@id)
     redirect_to :back
   end

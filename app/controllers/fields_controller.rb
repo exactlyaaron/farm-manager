@@ -30,7 +30,7 @@ class FieldsController < ApplicationController
 
   def destroy
     @id = params[:id]
-    Field.find(@id).create_activity :destroy, owner: current_user
+    # Field.find(@id).create_activity :destroy, owner: current_user
     Field.destroy(@id)
     redirect_to :back
   end

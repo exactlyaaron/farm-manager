@@ -1,7 +1,7 @@
 %div
   %p
-    Treated <a href="fields/#{activity.trackable.field.id}">#{activity.trackable.field.name}</a> with 
   - if activity.trackable
+    Treated <a href="fields/#{activity.trackable.field.id}">#{activity.trackable.field.name}</a> with 
     =link_to activity.trackable.supply.name, activity.trackable.field
   - else
     which has since been removed
