@@ -1,0 +1,54 @@
+!!!
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %title= content_for?(:title) ? yield(:title) : 'Farm Manager'
+    = include_gon
+    %meta{:name => "description", :content => "#{content_for?(:description) ? yield(:description) : 'Farm Manager'}"}
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+    %script{:src => "http://mbostock.github.com/d3/d3.v2.js"}
+    <script src="//use.typekit.net/qoy2gbg.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  %body
+    %header
+      = render 'layouts/navigation'
+    #landing-wrapper 
+      .container-fluid            
+        = render 'layouts/messages'
+      .farm-hero
+        = image_tag "farmware-logo.png"
+        %p= "Farm smarter."
+
+      .features
+        .row
+          .col-sm-4
+            %h3= "Manage Your Farm"
+            %p= "Use the friendly interface to add fields, track supplies, and record harvest payments."
+          .col-sm-4
+            %h3= "Track Markets"
+            %p= "Live data renewed each day keeps you on top of the latest major crop prices."
+          .col-sm-4
+            %h3= "Manage Finances"
+            %p= "Easy to read tables to show your purchases and projected revenue based on current markets."
+
+      .brand
+        .container
+          .row
+            .col-sm-6
+              = image_tag "farmware-tagline.png", class: "tagline"
+            .col-sm-6
+              = image_tag "farmware-mockup.png"
+
+      .about.container
+        .row
+          %h3= "About Farmware"
+          .col-sm-7
+            %p= "The app is designed to be a portable and usable online management tool to make such organiza- tion a far easier. Users can add their fields, keep up with their supplies, record harvested yields, and most importantly keep a running record of their chemicals used to treat the fields."
+          .col-sm-5
+            = image_tag "aaron.jpg", class: "profile-pic"
+
+      .footer
+        = image_tag "farmware-logo.png"
